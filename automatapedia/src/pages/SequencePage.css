@@ -146,12 +146,50 @@
   word-break: break-all; /* Prevent overflow with long sequences */
 }
 
-.sequence-element {
-  display: inline-block;
-  padding: 0.25rem 0.1rem; /* Reduced padding slightly */
+.sequence-values code,
+.euclidean-step {
+  display: block; /* Make each step/element take its own line */
+  padding: 0.3rem 0.5rem;
   margin: 0.25rem 0;
+  background-color: var(--background-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: var(--font-code, monospace); /* Ensure monospace for code */
   color: var(--text-color);
-  font-family: 'Syne', sans-serif;
+  word-break: keep-all; /* Try to keep expressions on one line if possible */
+  white-space: pre-wrap; /* Preserve whitespace and wrap */
+}
+
+.euclidean-steps-display {
+  background-color: var(--secondary-color-t, rgba(199, 173, 148, 0.05));
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--secondary-color);
+}
+
+.gcd-result {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.algorithm-rules {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: var(--background-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.algorithm-rules ol {
+  margin-left: 20px;
+  padding-left: 10px;
+}
+
+.algorithm-rules li {
+  margin-bottom: 0.5rem;
 }
 
 .error-message {
