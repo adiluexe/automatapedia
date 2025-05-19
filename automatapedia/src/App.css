@@ -40,3 +40,53 @@
 .read-the-docs {
   color: #888;
 }
+
+.container {
+  padding: 20px;
+  font-family: 'Courier New', Courier, monospace; /* Typewriter font */
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+.input-container label {
+  margin-right: 10px;
+}
+
+.input-container input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Open Sans', sans-serif; /* Modern sans-serif for input */
+}
+
+.pascal-triangle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto; /* Allows horizontal scrolling for large triangles */
+  padding: 10px;
+  border: 1px solid #ddd; /* Aged paper like border */
+  background-color: #fdfaf6; /* Aged paper background */
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.pascal-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px; /* Space between rows */
+  white-space: nowrap; /* Prevents numbers from wrapping within a row */
+}
+
+.pascal-number {
+  padding: 5px 10px;
+  margin: 0 5px; /* Space between numbers */
+  border: 1px solid #ddd; /* Subtle border for each number */
+  border-radius: 3px;
+  background-color: #fff;
+  min-width: 30px; /* Ensure numbers have some width */
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace; /* Typewriter font for numbers */
+}
