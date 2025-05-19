@@ -1,14 +1,15 @@
-export const generateLucasSequence = (terms: number): number[] => {
-  if (terms <= 0) {
-    return [];
+export const generateLucasSequence = (count: number): number[] => {
+  if (count <= 0) return [];
+
+  const sequence: number[] = [];
+  if (count >= 1) {
+    sequence.push(2); // L(0) = 2
   }
-  if (terms === 1) {
-    return [2]; // L_0 = 2
+  if (count >= 2) {
+    sequence.push(1); // L(1) = 1
   }
 
-  const sequence: number[] = [2, 1]; // L_0 = 2, L_1 = 1
-
-  for (let i = 2; i < terms; i++) {
+  for (let i = 2; i < count; i++) {
     const nextValue = sequence[i - 1] + sequence[i - 2];
     sequence.push(nextValue);
   }

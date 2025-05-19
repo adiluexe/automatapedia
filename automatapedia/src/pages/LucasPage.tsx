@@ -1,50 +1,117 @@
 import React, { useState } from "react";
 import { generateLucasSequence } from "../sequences/lucas";
-import "../App.css";
+import "./SequencePage.css"; // Common styles for sequence pages
 
 const LucasPage: React.FC = () => {
-  const [terms, setTerms] = useState<number>(10);
+  const [numTerms, setNumTerms] = useState<number>(10);
   const [sequence, setSequence] = useState<number[]>(generateLucasSequence(10));
+  const [showSequence, setShowSequence] = useState<boolean>(false);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const numTerms = parseInt(event.target.value, 10);
-    if (!isNaN(numTerms) && numTerms > 0) {
-      setTerms(numTerms);
+  const handleGenerateSequence = () => {
+    if (numTerms > 0) {
       setSequence(generateLucasSequence(numTerms));
-    } else if (event.target.value === "") {
-      setTerms(0);
+      setShowSequence(true);
+    } else {
       setSequence([]);
+      setShowSequence(false);
     }
   };
 
+  const handleNumTermsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    setNumTerms(isNaN(value) || value <= 0 ? 0 : value);
+    setShowSequence(false); // Hide sequence when input changes
+  };
+
   return (
-    <div className="container">
-      <h1>Lucas Sequence</h1>
-      <div className="input-container">
-        <label htmlFor="terms">Number of terms: </label>
-        <input
-          type="number"
-          id="terms"
-          value={terms === 0 ? "" : terms}
-          onChange={handleInputChange}
-          min="1"
-        />
-      </div>
-      <div className="sequence-container">
-        {sequence.map((num, index) => (
-          <span key={index} className="sequence-element">
-            {num}
-            {index < sequence.length - 1 ? ", " : ""}
-          </span>
-        ))}
-      </div>
-      <div className="info-container">
-        <p>
-          The Lucas sequence is a generalization of the Fibonacci sequence. The
-          standard Lucas numbers begin with L_0 = 2 and L_1 = 1, and each
-          subsequent number is the sum of the two preceding ones.
+    <div className="container sequence-page">
+      <header className="sequence-header">
+        <h1>Lucas Sequence</h1>
+        <p className="sequence-intro">
+          The Lucas sequence is a sequence of integers closely related to the
+          Fibonacci sequence. It follows the same recurrence relation (each term
+          is the sum of the two preceding ones), but with different starting
+          values: <code>L(0) = 2</code> and <code>L(1) = 1</code>. The first few
+          terms are: 2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123, ...
         </p>
-      </div>
+      </header>
+
+      <section className="interactive-generator">
+        <h2>Generate Lucas Sequence</h2>
+        <div className="input-grid">
+          <label htmlFor="numTerms">Number of Terms:</label>
+          <input
+            type="number"
+            id="numTerms"
+            value={numTerms === 0 ? "" : numTerms} // Show empty string if numTerms is 0 for better UX
+            onChange={handleNumTermsChange}
+            min="1"
+          />
+        </div>
+        <button onClick={handleGenerateSequence} className="generate-button">
+          Generate
+        </button>
+      </section>
+
+      {showSequence && sequence.length > 0 && (
+        <section className="results">
+          <h2>Results:</h2>
+          <p>Generated {sequence.length} terms of the Lucas sequence.</p>
+          <div className="visualization-placeholder">
+            {/* Placeholder for chart visualization */}
+            <p>(Chart/Visualization Area for Lucas Sequence)</p>
+          </div>
+          <div className="sequence-values">
+            <h3>Sequence Values:</h3>
+            <div className="sequence-list">
+              {sequence.map((num, index) => (
+                <code key={index} className="sequence-element">
+                  L({index}) = {num}
+                  {index < sequence.length - 1 ? ", " : ""}
+                </code>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="sequence-info">
+        <h2>Mathematical Properties</h2>
+        <ul>
+          <li>
+            The ratio of consecutive Lucas numbers converges to the golden ratio
+            (approximately 1.618).
+          </li>
+          <li>
+            Lucas numbers are related to Fibonacci numbers by the identity:{" "}
+            <code>L(n) = F(n-1) + F(n+1)</code>.
+          </li>
+          <li>
+            The sum of the first n Lucas numbers is <code>L(n+2) - 3</code>.
+          </li>
+          <li>
+            Lucas numbers appear in various combinatorial problems and number
+            theory.
+          </li>
+        </ul>
+        <p>
+          The Lucas sequence demonstrates how simple recurrence relations can
+          produce numbers with rich mathematical properties and connections to
+          other sequences.
+        </p>
+        <h3>Connection to Automata Theory</h3>
+        <p>
+          Similar to Fibonacci numbers, Lucas numbers can appear in the context
+          of automata theory, particularly in the analysis of the number of
+          words of a certain length accepted by specific finite automata or
+          generated by certain grammars. The underlying linear recurrence
+          relation is common in such combinatorial enumerations. For example,
+          counting paths in specific graph structures that can be modeled by
+          automata might lead to Lucas numbers or related sequences. Their
+          properties, like the connection to the golden ratio, also tie into the
+          study of the growth rates of formal languages.
+        </p>
+      </section>
     </div>
   );
 };

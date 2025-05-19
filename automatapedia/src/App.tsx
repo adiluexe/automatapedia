@@ -4,7 +4,8 @@ import "./index.css";
 import HomePage from "./pages/HomePage";
 import CollatzPage from "./pages/CollatzPage";
 import FibonacciPage from "./pages/FibonacciPage";
-import TribonacciPage from "./pages/TribonacciPage"; // Added import
+import TribonacciPage from "./pages/TribonacciPage";
+import LucasPage from "./pages/LucasPage"; // Added import
 import PascalPage from "./pages/PascalPage";
 // Import other pages if they exist
 
@@ -88,6 +89,15 @@ const App: React.FC = () => {
               element={
                 <AnimatedPage>
                   <TribonacciPage />
+                </AnimatedPage>
+              }
+            />{" "}
+            {/* Added route */}
+            <Route
+              path="/lucas"
+              element={
+                <AnimatedPage>
+                  <LucasPage />
                 </AnimatedPage>
               }
             />{" "}
