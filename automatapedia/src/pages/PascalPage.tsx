@@ -3,16 +3,16 @@ import { generatePascalsTriangle } from "../sequences/pascal";
 import "./SequencePage.css"; // Common styles
 
 const PascalPage: React.FC = () => {
-  const [numRows, setNumRows] = useState<number>(5);
+  const [numRows, setNumRows] = useState<number>(5); // Represents the highest row index (0-indexed) to display
   const [triangle, setTriangle] = useState<number[][]>(
-    generatePascalsTriangle(5) // Initialize with default
+    generatePascalsTriangle(5) // Initialize with default (generates rows 0 through 5)
   );
   const [showTriangle, setShowTriangle] = useState<boolean>(true); // Show by default
   const [error, setError] = useState<string>("");
 
   const handleGenerateTriangle = () => {
-    if (numRows <= 0) {
-      setError("Please enter a positive number of rows.");
+    if (numRows < 0) {
+      setError("Please enter a non-negative number for the highest row index.");
       setTriangle([]);
       setShowTriangle(false);
       return;
@@ -25,7 +25,7 @@ const PascalPage: React.FC = () => {
       return;
     }
     setError("");
-    setTriangle(generatePascalsTriangle(numRows));
+    setTriangle(generatePascalsTriangle(numRows)); // numRows is directly the highestRowIndex
     setShowTriangle(true);
   };
 
@@ -44,20 +44,21 @@ const PascalPage: React.FC = () => {
       <section className="sequence-intro-section card">
         <h2>What is Pascal's Triangle?</h2>
         <p>
-          Pascal's Triangle is a triangular array of numbers where each number
-          is the sum of the two numbers directly above it. Named after the
-          French mathematician Blaise Pascal, it has many interesting properties
-          and applications.
+          Pascal's Triangle is a triangular array of binomial coefficients. It
+          is named after the French mathematician Blaise Pascal, though other
+          mathematicians had studied it centuries before him in India, Persia,
+          China, Germany, and Italy. The rows of Pascal's triangle are
+          conventionally enumerated starting with row n = 0 at the top (the 0th
+          row is the single entry 1).
         </p>
         <div className="algorithm-rules">
           <p>
-            <strong>Rule:</strong> Each number is the sum of the two numbers
-            directly above it (with 1s along the edges).
-          </p>
-          <p>
-            The triangle begins with a single '1' at the top. Each subsequent
-            row is constructed by adding the two numbers directly above to the
-            left and right.
+            <strong>Construction:</strong> Each entry of each row is constructed
+            by adding the entry above and to the left with the entry above and
+            to the right, treating blank entries as 0. For example, the initial
+            number in the first (or any other) row is 1 (the sum of 0 and 1),
+            whereas the numbers 1 and 3 in the third row are added to produce
+            the number 4 in the fourth row.
           </p>
         </div>
       </section>
@@ -65,14 +66,16 @@ const PascalPage: React.FC = () => {
       <section className="sequence-generator-section card">
         <h2>Generate Pascal's Triangle</h2>
         <div className="input-group">
-          <label htmlFor="numRows">Number of Rows:</label>
+          <label htmlFor="numRows">
+            Highest Row Index (n, where row 0 is the first row):
+          </label>
           <input
             type="number"
             id="numRows"
-            value={numRows === 0 ? "" : numRows}
+            value={numRows}
             onChange={handleNumRowsChange}
-            min="1"
-            max="20" // Corresponds to error message
+            min="0"
+            max="20"
           />
           <button onClick={handleGenerateTriangle} className="generate-button">
             Generate
@@ -83,7 +86,7 @@ const PascalPage: React.FC = () => {
 
       {showTriangle && triangle.length > 0 && (
         <section className="results card">
-          <h2>Pascal's Triangle:</h2>
+          <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
           <div className="visualization-placeholder pascal-triangle-visualization">
             {triangle.map((row, rowIndex) => (
               <div key={rowIndex} className="pascal-row">
@@ -108,9 +111,9 @@ const PascalPage: React.FC = () => {
             <sup>2</sup> = 1a<sup>2</sup> + 2ab + 1b<sup>2</sup>.
           </li>
           <li>
-            <strong>Sum of Rows:</strong> The sum of the numbers in any row is
-            equal to 2<sup>n</sup>, where n is the row number (starting from
-            n=0).
+            <strong>Sum of Rows:</strong> The sum of the numbers in any row n is
+            equal to 2<sup>n</sup> (e.g., for row n=0, sum is 2<sup>0</sup>=1;
+            for row n=1, sum is 1+1=2<sup>1</sup>=2).
           </li>
           <li>
             <strong>Symmetry:</strong> The triangle is symmetrical along its

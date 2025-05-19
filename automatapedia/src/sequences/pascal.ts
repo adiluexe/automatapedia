@@ -1,23 +1,24 @@
-export const generatePascalsTriangle = (rows: number): number[][] => {
-  if (rows <= 0) {
-    return [];
+export const generatePascalsTriangle = (
+  highestRowIndex: number
+): number[][] => {
+  if (highestRowIndex < 0) {
+    return []; // No rows if index is negative
   }
-  if (rows === 1) {
-    return [[1]];
-  }
 
-  const triangle: number[][] = [[1]];
-
-  for (let i = 1; i < rows; i++) {
-    const prevRow = triangle[i - 1];
-    const currentRow: number[] = [1]; // First element is always 1
-
-    for (let j = 1; j < i; j++) {
-      currentRow.push(prevRow[j - 1] + prevRow[j]);
+  const triangle: number[][] = [];
+  for (let i = 0; i <= highestRowIndex; i++) {
+    // Loop from row 0 up to and including highestRowIndex
+    const row: number[] = [];
+    for (let j = 0; j <= i; j++) {
+      if (j === 0 || j === i) {
+        row.push(1);
+      } else {
+        // Accessing triangle[i-1] which is the previous row
+        // This is safe because for i > 0, triangle[i-1] will exist
+        row.push(triangle[i - 1][j - 1] + triangle[i - 1][j]);
+      }
     }
-
-    currentRow.push(1); // Last element is always 1
-    triangle.push(currentRow);
+    triangle.push(row);
   }
 
   return triangle;
