@@ -2,6 +2,9 @@
     "github.copilot.chat.codeGeneration.instructions": [
         {
             "file": "docs/ai_guidelines.md"
+        },
+        {
+            "file": "docs/prd.md"
         }
     ],
     "github.copilot.chat.commitMessageGeneration.instructions": [
