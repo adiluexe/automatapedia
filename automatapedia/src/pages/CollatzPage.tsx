@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import { generateCollatzSequence } from "../sequences/collatz";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import "../App.css"; // General app styles
 import "./SequencePage.css"; // Specific styles for sequence pages
 
@@ -8,25 +18,42 @@ const CollatzPage: React.FC = () => {
   const [sequence, setSequence] = useState<number[]>(
     generateCollatzSequence(17)
   );
-  const [inputValue, setInputValue] = useState<string>("17");
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+  const [showSequence, setShowSequence] = useState<boolean>(true); // Show by default
+  const [error, setError] = useState<string>("");
 
   const handleGenerateSequence = () => {
-    const num = parseInt(inputValue, 10);
-    if (!isNaN(num) && num > 0) {
-      setStartNumber(num);
-      setSequence(generateCollatzSequence(num));
-    } else {
-      // Optionally, handle invalid input, e.g., show an error message
-      setStartNumber(0); // Or keep previous valid number
-      setSequence([]); // Or keep previous sequence
+    if (startNumber <= 0) {
+      setError("Please enter a positive starting number.");
+      setSequence([]);
+      setShowSequence(false);
+      return;
     }
+    if (startNumber > 1000000) {
+      // Add a reasonable upper limit for performance
+      setError(
+        "Starting number is too large. Please choose a smaller number (e.g., below 1,000,000)."
+      );
+      setSequence([]);
+      setShowSequence(false);
+      return;
+    }
+    setError("");
+    const newSequence = generateCollatzSequence(startNumber);
+    setSequence(newSequence);
+    setShowSequence(true);
+  };
+
+  const handleStartNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = parseInt(event.target.value, 10);
+    setStartNumber(isNaN(value) ? 0 : value);
+    setShowSequence(false); // Hide sequence when input changes
   };
 
   const sequenceSteps = sequence.length > 0 ? sequence.length - 1 : 0;
+
+  const chartData = sequence.map((value, index) => ({ step: index, value }));
 
   return (
     <div className="sequence-page-container">
@@ -60,55 +87,71 @@ const CollatzPage: React.FC = () => {
           <input
             type="number"
             id="startNumber"
-            value={inputValue}
-            onChange={handleInputChange}
+            value={startNumber}
+            onChange={handleStartNumberChange}
             min="1"
           />
           <button onClick={handleGenerateSequence} className="generate-button">
             Generate
           </button>
         </div>
-
-        {sequence.length > 0 && startNumber > 0 && (
-          <div className="results-display">
-            <h3>Results:</h3>
-            <p>
-              Starting from {startNumber}, the sequence reached 1 in{" "}
-              {sequenceSteps} step{sequenceSteps !== 1 ? "s" : ""}.
-            </p>
-
-            {/* Placeholder for Chart Visualization */}
-            <div className="visualization-placeholder">
-              {/* This is where the chart would go. For now, a simple message. */}
-              <p>[Chart Visualization of the sequence values against steps]</p>
-              {/* Example of how you might map data for a simple bar chart or line graph */}
-              {/* <div style={{ display: 'flex', alignItems: 'flex-end', height: '150px', border: '1px solid var(--secondary-color)'}}>
-                {sequence.map((val, idx) => (
-                  <div key={idx} style={{ width: '20px', height: `${val}px`, backgroundColor: 'var(--primary-color)', margin: '0 2px', textAlign: 'center', color: 'white', fontSize:'10px' }}>
-                    {val}
-                  </div>
-                ))}
-              </div> */}
-            </div>
-
-            <h4>Sequence Values:</h4>
-            <div className="sequence-values">
-              {sequence.map((num, index) => (
-                <span key={index} className="sequence-element">
-                  {num}
-                  {index < sequence.length - 1 ? " – " : ""}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-        {startNumber <= 0 && inputValue !== "" && (
-          <p className="error-message">
-            Please enter a positive starting number.
-          </p>
-        )}
+        {error && <p className="error-message">{error}</p>}
       </section>
 
+      {showSequence && sequence.length > 0 && (
+        <section className="results card">
+          <h2>Results</h2>
+          <p>
+            Starting from {startNumber}, the sequence reached 1 in{" "}
+            {sequenceSteps} step{sequenceSteps !== 1 ? "s" : ""}.
+          </p>
+
+          <div className="visualization-placeholder chart-container">
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart
+                data={chartData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--border-color)"
+                />
+                <XAxis dataKey="step" stroke="var(--text-color)" />
+                <YAxis stroke="var(--text-color)" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "var(--background-color-light)",
+                    borderColor: "var(--border-color)",
+                  }}
+                  itemStyle={{ color: "var(--text-color)" }}
+                />
+                <Legend wrapperStyle={{ color: "var(--text-color)" }} />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="var(--primary-color)"
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <h4>Sequence Values:</h4>
+          <div className="sequence-values">
+            {sequence.map((num, index) => (
+              <span key={index} className="sequence-element">
+                {num}
+                {index < sequence.length - 1 ? " – " : ""}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="sequence-automata-connection card">
         <h2>Connection to Automata Theory</h2>
         <p>

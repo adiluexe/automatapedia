@@ -6,9 +6,9 @@ import CollatzPage from "./pages/CollatzPage";
 import FibonacciPage from "./pages/FibonacciPage";
 import TribonacciPage from "./pages/TribonacciPage";
 import LucasPage from "./pages/LucasPage";
-import EuclideanPage from "./pages/EuclideanPage"; // Added import
+import EuclideanPage from "./pages/EuclideanPage";
 import PascalPage from "./pages/PascalPage";
-// Import other pages if they exist
+import AboutPage from "./pages/AboutPage"; // Import the AboutPage component
 
 const App: React.FC = () => {
   return (
@@ -120,6 +120,14 @@ const App: React.FC = () => {
                 </AnimatedPage>
               }
             />
+            <Route
+              path="/about"
+              element={
+                <AnimatedPage>
+                  <AboutPage />
+                </AnimatedPage>
+              }
+            />{" "}
             {/* Add routes for other pages here */}
           </Routes>
         </main>

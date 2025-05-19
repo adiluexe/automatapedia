@@ -1,58 +1,72 @@
 import React, { useState } from "react";
 import { generateTribonacciSequence } from "../sequences/tribonacci";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import "./SequencePage.css"; // Using common sequence page styles
 
 const TribonacciPage: React.FC = () => {
+  // State for input fields (strings)
+  const [numTermsInput, setNumTermsInput] = useState<string>("10");
+  const [startVal1Input, setStartVal1Input] = useState<string>("0");
+  const [startVal2Input, setStartVal2Input] = useState<string>("0");
+  const [startVal3Input, setStartVal3Input] = useState<string>("1");
+
+  // State for actual numbers used in generation
   const [numTerms, setNumTerms] = useState<number>(10);
   const [startVal1, setStartVal1] = useState<number>(0);
   const [startVal2, setStartVal2] = useState<number>(0);
   const [startVal3, setStartVal3] = useState<number>(1);
+
   const [sequence, setSequence] = useState<number[]>(
-    generateTribonacciSequence(10, 0, 0, 1)
+    generateTribonacciSequence(numTerms, startVal1, startVal2, startVal3) // Use state here for initial generation
   );
-  const [showSequence, setShowSequence] = useState<boolean>(false);
+  const [showSequence, setShowSequence] = useState<boolean>(true); // Show by default
+  const [error, setError] = useState<string>("");
 
   const handleGenerateSequence = () => {
-    if (numTerms > 0) {
-      setSequence(
-        generateTribonacciSequence(numTerms, startVal1, startVal2, startVal3)
-      );
-      setShowSequence(true);
-    } else {
+    const terms = parseInt(numTermsInput, 10);
+    const val1 = parseInt(startVal1Input, 10);
+    const val2 = parseInt(startVal2Input, 10);
+    const val3 = parseInt(startVal3Input, 10);
+
+    if (isNaN(terms) || terms <= 0) {
+      setError("Number of terms must be a positive integer.");
       setSequence([]);
       setShowSequence(false);
+      return;
     }
+    if (isNaN(val1) || isNaN(val2) || isNaN(val3)) {
+      setError("Starting values must be integers.");
+      setSequence([]);
+      setShowSequence(false);
+      return;
+    }
+    if (terms > 50) {
+      // Limit for practical display
+      setError("Please enter a number of terms less than or equal to 50.");
+      setSequence([]);
+      setShowSequence(false);
+      return;
+    }
+
+    setError("");
+    setNumTerms(terms);
+    setStartVal1(val1);
+    setStartVal2(val2);
+    setStartVal3(val3);
+    setSequence(generateTribonacciSequence(terms, val1, val2, val3));
+    setShowSequence(true);
   };
 
-  const handleNumTermsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
-    setNumTerms(isNaN(value) || value <= 0 ? 0 : value);
-    setShowSequence(false);
-  };
-
-  const handleStartVal1Change = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value, 10);
-    setStartVal1(isNaN(value) ? 0 : value);
-    setShowSequence(false);
-  };
-
-  const handleStartVal2Change = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value, 10);
-    setStartVal2(isNaN(value) ? 0 : value);
-    setShowSequence(false);
-  };
-
-  const handleStartVal3Change = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value, 10);
-    setStartVal3(isNaN(value) ? 0 : value);
-    setShowSequence(false);
-  };
+  const chartData = sequence.map((value, index) => ({ term: index, value }));
 
   return (
     <div className="container sequence-page">
@@ -74,32 +88,46 @@ const TribonacciPage: React.FC = () => {
           <input
             type="number"
             id="numTerms"
-            value={numTerms === 0 ? "" : numTerms}
-            onChange={handleNumTermsChange}
+            value={numTermsInput}
+            onChange={(e) => {
+              setNumTermsInput(e.target.value);
+              setShowSequence(false);
+            }}
             min="1"
+            max="50"
           />
           <label htmlFor="startVal1">First term (T0):</label>
           <input
             type="number"
             id="startVal1"
-            value={startVal1}
-            onChange={handleStartVal1Change}
+            value={startVal1Input}
+            onChange={(e) => {
+              setStartVal1Input(e.target.value);
+              setShowSequence(false);
+            }}
           />
           <label htmlFor="startVal2">Second term (T1):</label>
           <input
             type="number"
             id="startVal2"
-            value={startVal2}
-            onChange={handleStartVal2Change}
+            value={startVal2Input}
+            onChange={(e) => {
+              setStartVal2Input(e.target.value);
+              setShowSequence(false);
+            }}
           />
           <label htmlFor="startVal3">Third term (T2):</label>
           <input
             type="number"
             id="startVal3"
-            value={startVal3}
-            onChange={handleStartVal3Change}
+            value={startVal3Input}
+            onChange={(e) => {
+              setStartVal3Input(e.target.value);
+              setShowSequence(false);
+            }}
           />
         </div>
+        {error && <p className="error-message">{error}</p>}
         <button onClick={handleGenerateSequence} className="generate-button">
           Generate
         </button>
@@ -109,13 +137,50 @@ const TribonacciPage: React.FC = () => {
         <section className="results">
           <h2>Results</h2>
           <p>
-            Generated {sequence.length} terms of the Tribonacci sequence
+            Generated {numTerms} terms of the Tribonacci sequence{" "}
+            {/* Use numTerms state here */}
             starting with <code>{startVal1}</code>, <code>{startVal2}</code>,{" "}
             <code>{startVal3}</code>.
           </p>
-          <div className="visualization-placeholder">
-            {/* Placeholder for chart visualization */}
-            <p>(Chart/Visualization Area for Tribonacci Sequence)</p>
+          <div className="visualization-placeholder chart-container">
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart
+                data={chartData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--border-color)"
+                />
+                <XAxis
+                  dataKey="term"
+                  name="Term (n)"
+                  stroke="var(--text-color)"
+                />
+                <YAxis
+                  name="Value T(n)"
+                  stroke="var(--text-color)"
+                  allowDataOverflow={true}
+                  domain={["auto", "auto"]}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "var(--background-color-light)",
+                    borderColor: "var(--border-color)",
+                  }}
+                  itemStyle={{ color: "var(--text-color)" }}
+                  formatter={(value: number) => value.toLocaleString()} // Format large numbers
+                />
+                <Legend wrapperStyle={{ color: "var(--text-color)" }} />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  name="Tribonacci Value"
+                  stroke="var(--primary-color)"
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
           <div className="sequence-values">
             <h3>Sequence Values:</h3>

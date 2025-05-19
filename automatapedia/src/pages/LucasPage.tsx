@@ -1,27 +1,53 @@
 import React, { useState } from "react";
 import { generateLucasSequence } from "../sequences/lucas";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import "./SequencePage.css"; // Common styles for sequence pages
 
 const LucasPage: React.FC = () => {
-  const [numTerms, setNumTerms] = useState<number>(10);
+  const [numTermsInput, setNumTermsInput] = useState<string>("10"); // Input state as string
+  const [numTerms, setNumTerms] = useState<number>(10); // Parsed number state
   const [sequence, setSequence] = useState<number[]>(generateLucasSequence(10));
-  const [showSequence, setShowSequence] = useState<boolean>(false);
+  const [showSequence, setShowSequence] = useState<boolean>(true); // Show by default
+  const [error, setError] = useState<string>("");
 
   const handleGenerateSequence = () => {
-    if (numTerms > 0) {
-      setSequence(generateLucasSequence(numTerms));
-      setShowSequence(true);
-    } else {
+    const terms = parseInt(numTermsInput, 10);
+    if (isNaN(terms) || terms <= 0) {
+      setError("Number of terms must be a positive integer.");
       setSequence([]);
       setShowSequence(false);
+      return;
     }
+    if (terms > 50) {
+      // Limit for practical display
+      setError("Please enter a number of terms less than or equal to 50.");
+      setSequence([]);
+      setShowSequence(false);
+      return;
+    }
+    setError("");
+    setNumTerms(terms);
+    setSequence(generateLucasSequence(terms));
+    setShowSequence(true);
   };
 
-  const handleNumTermsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
-    setNumTerms(isNaN(value) || value <= 0 ? 0 : value);
+  const handleNumTermsInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNumTermsInput(event.target.value);
     setShowSequence(false); // Hide sequence when input changes
   };
+
+  const chartData = sequence.map((value, index) => ({ term: index, value }));
 
   return (
     <div className="container sequence-page">
@@ -43,11 +69,13 @@ const LucasPage: React.FC = () => {
           <input
             type="number"
             id="numTerms"
-            value={numTerms === 0 ? "" : numTerms} // Show empty string if numTerms is 0 for better UX
-            onChange={handleNumTermsChange}
+            value={numTermsInput} // Bind to string input state
+            onChange={handleNumTermsInputChange}
             min="1"
+            max="50"
           />
         </div>
+        {error && <p className="error-message">{error}</p>}
         <button onClick={handleGenerateSequence} className="generate-button">
           Generate
         </button>
@@ -56,10 +84,47 @@ const LucasPage: React.FC = () => {
       {showSequence && sequence.length > 0 && (
         <section className="results">
           <h2>Results:</h2>
-          <p>Generated {sequence.length} terms of the Lucas sequence.</p>
-          <div className="visualization-placeholder">
-            {/* Placeholder for chart visualization */}
-            <p>(Chart/Visualization Area for Lucas Sequence)</p>
+          <p>Generated {numTerms} terms of the Lucas sequence.</p>{" "}
+          {/* Use numTerms state */}
+          <div className="visualization-placeholder chart-container">
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart
+                data={chartData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--border-color)"
+                />
+                <XAxis
+                  dataKey="term"
+                  name="Term (n)"
+                  stroke="var(--text-color)"
+                />
+                <YAxis
+                  name="Value L(n)"
+                  stroke="var(--text-color)"
+                  allowDataOverflow={true}
+                  domain={["auto", "auto"]}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "var(--background-color-light)",
+                    borderColor: "var(--border-color)",
+                  }}
+                  itemStyle={{ color: "var(--text-color)" }}
+                  formatter={(value: number) => value.toLocaleString()}
+                />
+                <Legend wrapperStyle={{ color: "var(--text-color)" }} />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  name="Lucas Value"
+                  stroke="var(--primary-color)"
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
           <div className="sequence-values">
             <h3>Sequence Values:</h3>
