@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./HomePage.css"; // Import the CSS file for HomePage
 
 // Placeholder for SequenceCard component
 const SequenceCard = ({
@@ -11,17 +12,13 @@ const SequenceCard = ({
   description: string;
   linkTo: string;
 }) => (
-  <div className="bg-white shadow-lg rounded-lg p-6 border border-secondary transform hover:scale-105 transition-transform duration-300">
-    <h3 className="font-heading text-xl text-primary mb-2">{title}</h3>
-    <div className="w-full h-32 bg-gray-200 mb-4 rounded flex items-center justify-center text-gray-400">
-      {/* Placeholder for visualization/image */}
+  <div className="sequence-card">
+    <h3>{title}</h3>
+    <div className="visualization-area">
       <span>Visualization Area</span>
     </div>
-    <p className="text-text mb-4 text-sm">{description}</p>
-    <Link
-      to={linkTo}
-      className="inline-block bg-primary text-white font-body px-6 py-2 rounded hover:bg-accent transition-colors duration-300"
-    >
+    <p>{description}</p>
+    <Link to={linkTo} className="explore-button">
       Explore
     </Link>
   </div>
@@ -68,43 +65,31 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-6 py-12">
-      {/* Hero Section */}
-      <section className="text-center mb-16">
-        <h1 className="font-heading text-6xl text-primary mb-4">
-          Automatapedia
-        </h1>
-        <p className="text-xl text-text mb-8">
+    <div className="homepage-container">
+      <header className="homepage-header">
+        <h1>Automatapedia</h1>
+        <p>
           An interactive journey through mathematical sequences and automata
           theory
         </p>
-      </section>
+      </header>
 
-      {/* Welcome Section */}
-      <section className="mb-16 p-8 bg-white shadow-lg rounded-lg border border-secondary">
-        <h2 className="font-heading text-3xl text-primary mb-4">
-          Welcome to Automatapedia
-        </h2>
-        <p className="text-text mb-4">
+      <section className="welcome-section">
+        <h2>Welcome to Automatapedia</h2>
+        <p>
           Automatapedia is an interactive encyclopedia of mathematical sequences
           related to automata theory. Explore the fascinating patterns behind
           computation and mathematics with our vintage-inspired visualizations.
         </p>
-        <p className="text-text">
+        <p>
           Select a sequence below to begin your exploration, or visit our{" "}
-          <Link to="/about" className="text-accent hover:underline">
-            About page
-          </Link>{" "}
-          to learn more about the project.
+          <Link to="/about">About page</Link> to learn more about the project.
         </p>
       </section>
 
-      {/* Explore Sequences Section */}
-      <section>
-        <h2 className="font-heading text-4xl text-primary text-center mb-10">
-          Explore Sequences
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="explore-sequences-section">
+        <h2>Explore Sequences</h2>
+        <div className="sequences-grid">
           {sequences.map((seq) => (
             <SequenceCard
               key={seq.title}

@@ -1,12 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Syne:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair%20Display:700|Syne:400');
+@import './colors.css';
 
-@import 'tailwindcss';
-
-/* You can add custom base styles or component styles below if needed,
-   but try to use Tailwind utility classes as much as possible. */
-
-/* Example of a custom base style if you absolutely need it:
 body {
-  @apply font-body bg-background text-text;
+  font-family: 'Syne', sans-serif; /* Added sans-serif as a fallback */
+  font-weight: 400;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
 }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif; /* Added serif as a fallback */
+  font-weight: 700;
+  color: var(--primary-color); /* Example: Use primary color for headings */
+}
+
+html {font-size: 100%;} /* 16px */
+
+h1 {font-size: 4.210rem; /* 67.36px */}
+
+h2 {font-size: 3.158rem; /* 50.56px */}
+
+h3 {font-size: 2.369rem; /* 37.92px */}
+
+h4 {font-size: 1.777rem; /* 28.48px */}
+
+h5 {font-size: 1.333rem; /* 21.28px */}
+
+small {font-size: 0.750rem; /* 12px */}
+
+/* Remove Tailwind directives */
+/*
+@import 'tailwindcss'; 
 */

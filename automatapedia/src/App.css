@@ -1,201 +1,173 @@
 /* General App Layout */
-#root {
-  max-width: 100%; /* Allow full width */
-  margin: 0 auto;
-  padding: 0; /* Remove padding, handle in components */
-  text-align: left; /* Default to left align */
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Navigation Bar */
-nav {
-  background-color: var(--card-bg-light);
+.main-nav {
+  background-color: var(--background-color); /* Or a slightly different shade if desired */
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid var(--border-color-light);
+  border-bottom: 1px solid var(--secondary-color);
   width: 100%;
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  nav {
-    background-color: var(--card-bg-dark);
-    border-bottom: 1px solid var(--border-color-dark);
-  }
+.nav-content {
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-nav ul {
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; /* Adjust as needed */
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: center; /* Center nav items */
-  gap: 1.5rem; /* Space between nav items */
 }
 
-nav ul li a {
-  font-weight: 500;
-  font-size: 1.1em;
-  transition: color 0.2s ease-in-out;
+.nav-links li {
+  margin-left: 1.5rem; /* Adjust as needed */
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-family: 'Syne', sans-serif;
+}
+
+.nav-links li a:hover {
+  color: var(--accent-color);
 }
 
 /* Main Content Area */
-.page-container {
-  flex-grow: 1; /* Allow content to take available space */
-  width: 100%;
-  max-width: 1200px; /* Max width for content */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem; /* Add some padding */
+  max-width: 1200px; /* Match nav-content or adjust */
   margin: 0 auto; /* Center content */
-  padding: 2rem;
+  width: 100%;
   box-sizing: border-box;
 }
 
-/* Container for sequence pages */
-.container {
-  background-color: var(--card-bg-light);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 2rem; /* Space below each sequence container */
-  border: 1px solid var(--border-color-light);
+/* Footer */
+.main-footer {
+  background-color: var(--background-color);
+  border-top: 1px solid var(--secondary-color);
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.875rem; /* Adjust as needed */
+  color: var(--secondary-color); /* Or a lighter text color */
 }
 
-@media (prefers-color-scheme: dark) {
-  .container {
-    background-color: var(--card-bg-dark);
-    border: 1px solid var(--border-color-dark);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
+.main-footer p {
+  margin: 0.25rem 0;
+}
+
+/* Container for sequence pages - can be more specific if needed */
+.container {
+  padding: 20px;
+  background-color: var(--background-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .container h1 {
-  text-align: center; /* Center page titles */
-  color: var(--primary-color-light);
-  margin-bottom: 1.5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  .container h1 {
-    color: var(--primary-color-dark);
-  }
+  color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
 /* Input and Form Styling */
 .input-container {
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column; /* Stack label and input */
-  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .input-container label {
-  font-weight: 500;
-  font-size: 1em;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
 .input-container input[type="number"] {
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color-light);
-  border-radius: 6px;
-  font-size: 1em;
-  font-family: 'Inter', sans-serif;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  background-color: var(--background-color-light);
-  color: var(--text-color-light);
+  padding: 0.5rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  font-family: 'Syne', sans-serif;
+  color: var(--text-color);
+  background-color: #fff; /* Or a very light background */
 }
 
 .input-container input[type="number"]:focus {
   outline: none;
-  border-color: var(--primary-color-light);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-@media (prefers-color-scheme: dark) {
-  .input-container input[type="number"] {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
-    border: 1px solid var(--border-color-dark);
-  }
-  .input-container input[type="number"]:focus {
-    border-color: var(--primary-color-dark);
-    box-shadow: 0 0 0 3px rgba(0, 174, 255, 0.25);
-  }
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--accent-color-t); /* transparent accent */
 }
 
 /* Sequence Display Styling */
-.sequence-container, .euclidean-steps-container, .pascal-triangle-container {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background-color: #f9f9f9; /* Slightly different background for emphasis */
-  border-radius: 6px;
-  border: 1px solid var(--border-color-light);
-  overflow-x: auto; /* Ensure responsiveness */
-}
-
-@media (prefers-color-scheme: dark) {
-  .sequence-container, .euclidean-steps-container, .pascal-triangle-container {
-    background-color: #25282c; /* Darker emphasis background */
-    border: 1px solid var(--border-color-dark);
-  }
-}
-
-.sequence-element, .euclidean-step, .pascal-number {
-  display: inline-block; /* Allow spacing and prevent awkward line breaks */
-  padding: 0.5rem 0.75rem;
-  margin: 0.25rem;
-  background-color: var(--card-bg-light);
-  border: 1px solid var(--border-color-light);
+.sequence-container,
+.euclidean-steps-container,
+.pascal-triangle-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--background-color); /* Slightly different from page bg if desired */
+  border: 1px solid var(--secondary-color);
   border-radius: 4px;
-  font-family: 'Fira Code', 'Courier New', monospace; /* Monospaced for numbers */
-  font-size: 1em;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow-x: auto; /* For long sequences */
 }
 
-.sequence-element:hover, .euclidean-step:hover, .pascal-number:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.sequence-element,
+.euclidean-step,
+.pascal-number {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  background-color: var(--secondary-color-t); /* transparent secondary */
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  color: var(--text-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  .sequence-element, .euclidean-step, .pascal-number {
-    background-color: var(--card-bg-dark);
-    border: 1px solid var(--border-color-dark);
-  }
-   .sequence-element:hover, .euclidean-step:hover, .pascal-number:hover {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
+.sequence-element:hover,
+.euclidean-step:hover,
+.pascal-number:hover {
+  background-color: var(--accent-color-t); /* transparent accent */
+  border-color: var(--accent-color);
 }
 
 .pascal-row {
   display: flex;
   justify-content: center;
   margin-bottom: 0.5rem;
-  white-space: nowrap;
 }
 
 /* Info Container Styling */
 .info-container {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: #e9ecef; /* Different background for info */
-  border-radius: 6px;
-  border: 1px solid #ced4da;
-  font-size: 0.95em;
-  line-height: 1.7;
-}
-
-@media (prefers-color-scheme: dark) {
-  .info-container {
-    background-color: #343a40; /* Dark info background */
-    border: 1px solid #495057;
-    color: #ced4da;
-  }
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--background-color); /* Or a slightly different shade */
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  line-height: 1.6;
 }
 
 /* Remove Vite default logo styles if they exist and are not needed */
+/*
 .logo, .logo.react, .card, .read-the-docs {
-  display: none; /* Or remove them if they are not used */
+  display: none; 
 }
 
 @keyframes logo-spin {
@@ -206,3 +178,4 @@ nav ul li a {
     transform: rotate(360deg);
   }
 }
+*/

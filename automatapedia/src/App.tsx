@@ -1,91 +1,67 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { motion } from "framer-motion"; // Import motion
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; // Added Link
+import { motion } from "framer-motion";
+import "./index.css";
 import HomePage from "./pages/HomePage";
 import CollatzPage from "./pages/CollatzPage";
-import EuclideanPage from "./pages/EuclideanPage";
 import FibonacciPage from "./pages/FibonacciPage";
-import LucasPage from "./pages/LucasPage";
 import PascalPage from "./pages/PascalPage";
-import TribonacciPage from "./pages/TribonacciPage";
-import "./App.css";
-import "./index.css"; // Ensure global styles are imported
+// Import other pages if they exist
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-background text-text font-body">
-        {/* Header component will go here */}
-        <nav className="bg-background shadow-md">
-          <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-            <Link to="/" className="font-heading text-2xl text-primary">
+      <div className="app-container">
+        {" "}
+        {/* Replaced Tailwind classes with a general one */}
+        <nav className="main-nav">
+          {" "}
+          {/* Replaced Tailwind classes with a general one */}
+          <div className="nav-content">
+            {" "}
+            {/* Replaced Tailwind classes with a general one */}
+            <Link to="/" className="nav-logo">
               Automatapedia
-            </Link>
-            <div>
-              <Link to="/" className="text-text hover:text-primary px-3 py-2">
-                Home
-              </Link>
-              <Link
-                to="/collatz"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Collatz
-              </Link>
-              <Link
-                to="/euclidean"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Euclidean
-              </Link>
-              <Link
-                to="/fibonacci"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Fibonacci
-              </Link>
-              <Link
-                to="/lucas"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Lucas
-              </Link>
-              <Link
-                to="/pascal"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Pascal
-              </Link>
-              <Link
-                to="/tribonacci"
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                Tribonacci
-              </Link>
-              <Link
-                to="/about" // Added About link
-                className="text-text hover:text-primary px-3 py-2"
-              >
-                About
-              </Link>
-            </div>
+            </Link>{" "}
+            {/* Added Link and class*/}
+            <ul className="nav-links">
+              {" "}
+              {/* Added class*/}
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/collatz">Collatz</Link>
+              </li>
+              <li>
+                <Link to="/fibonacci">Fibonacci</Link>
+              </li>
+              <li>
+                <Link to="/pascal">Pascal</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>{" "}
+              {/* Assuming an About page will be created */}
+            </ul>
           </div>
         </nav>
-
-        <main className="flex-grow">
+        <main className="main-content">
+          {" "}
+          {/* Replaced Tailwind classes with a general one */}
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/"
+              element={
+                <AnimatedPage>
+                  <HomePage />
+                </AnimatedPage>
+              }
+            />
             <Route
               path="/collatz"
               element={
                 <AnimatedPage>
                   <CollatzPage />
-                </AnimatedPage>
-              }
-            />
-            <Route
-              path="/euclidean"
-              element={
-                <AnimatedPage>
-                  <EuclideanPage />
                 </AnimatedPage>
               }
             />
@@ -98,14 +74,6 @@ const App: React.FC = () => {
               }
             />
             <Route
-              path="/lucas"
-              element={
-                <AnimatedPage>
-                  <LucasPage />
-                </AnimatedPage>
-              }
-            />
-            <Route
               path="/pascal"
               element={
                 <AnimatedPage>
@@ -113,26 +81,17 @@ const App: React.FC = () => {
                 </AnimatedPage>
               }
             />
-            <Route
-              path="/tribonacci"
-              element={
-                <AnimatedPage>
-                  <TribonacciPage />
-                </AnimatedPage>
-              }
-            />
+            {/* Add routes for other pages here */}
           </Routes>
         </main>
-
-        {/* Footer component will go here */}
-        <footer className="bg-background border-t border-secondary mt-10">
-          <div className="container mx-auto px-6 py-4 flex justify-between items-center text-sm text-text">
-            <p>&copy; 2025 Automatapedia</p>
-            <p>
-              An interactive journey through mathematical sequences & automata
-              theory
-            </p>
-          </div>
+        <footer className="main-footer">
+          {" "}
+          {/* Replaced Tailwind classes with a general one */}
+          <p>© 2025 Automatapedia</p>
+          <p>
+            An interactive journey through mathematical sequences & automata
+            theory
+          </p>
         </footer>
       </div>
     </Router>
