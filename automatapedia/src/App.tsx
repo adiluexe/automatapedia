@@ -23,7 +23,8 @@ const App: React.FC = () => {
             {" "}
             {/* Replaced Tailwind classes with a general one */}
             <Link to="/" className="nav-logo">
-              Automatapedia
+              <span className="logo-automata">Automata</span>
+              <span className="logo-pedia">pedia</span>
             </Link>{" "}
             {/* Added Link and class*/}
             <ul className="nav-links">

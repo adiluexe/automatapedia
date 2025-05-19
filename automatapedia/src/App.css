@@ -26,10 +26,20 @@
 }
 
 .nav-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Chivo Mono', monospace; /* Changed font */
   font-size: 2rem; /* Increased font size for the logo */
-  color: var(--primary-color);
+  /* color: var(--primary-color); */ /* Color will be set by spans */
   text-decoration: none;
+  font-weight: 700; /* Make it bold */
+  text-transform: uppercase; /* Added */
+}
+
+.nav-logo .logo-automata {
+  color: var(--primary-color);
+}
+
+.nav-logo .logo-pedia {
+  color: var(--accent-color);
 }
 
 .nav-links {
