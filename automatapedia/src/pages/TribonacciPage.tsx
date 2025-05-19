@@ -69,20 +69,44 @@ const TribonacciPage: React.FC = () => {
   const chartData = sequence.map((value, index) => ({ term: index, value }));
 
   return (
-    <div className="container sequence-page">
-      <header className="sequence-header">
+    <div className="sequence-page-container">
+      {" "}
+      {/* Changed from "container sequence-page" */}
+      <header className="sequence-page-header">
+        {" "}
+        {/* Added header */}
         <h1>Tribonacci Sequence</h1>
-        <p className="sequence-intro">
+      </header>
+      <section className="sequence-intro-section card">
+        {" "}
+        {/* Intro card */}
+        <h2>What is the Tribonacci Sequence?</h2>
+        <p>
           The Tribonacci sequence is a generalization of the Fibonacci sequence
           where each term is the sum of the three preceding terms. The standard
           sequence starts with <code>T(0) = 0</code>, <code>T(1) = 0</code>, and{" "}
           <code>T(2) = 1</code>. Explore how changing the number of terms or the
           initial values affects the sequence.
         </p>
-      </header>
-
-      <section className="interactive-generator">
-        <h2>Generate Sequence</h2>
+        <p>
+          A Tribonacci number is a member of a sequence of integers in which
+          each term is the sum of the three preceding terms. The sequence can be
+          defined by the recurrence relation:
+        </p>
+        <p>
+          <code>T(n) = T(n-1) + T(n-2) + T(n-3)</code>
+        </p>
+        <p>
+          With initial values typically set as <code>T(0) = 0</code>,{" "}
+          <code>T(1) = 0</code>, and <code>T(2) = 1</code>. Other starting
+          values can also be used to generate different Tribonacci-like
+          sequences.
+        </p>
+      </section>
+      <section className="sequence-generator-section card">
+        {" "}
+        {/* Generator card */}
+        <h2>Generate Tribonacci Sequence</h2> {/* Changed heading */}
         <div className="input-grid tribonacci-grid">
           <label htmlFor="numTerms">Number of terms:</label>
           <input
@@ -132,9 +156,10 @@ const TribonacciPage: React.FC = () => {
           Generate
         </button>
       </section>
-
       {showSequence && sequence.length > 0 && (
-        <section className="results">
+        <section className="results card">
+          {" "}
+          {/* Results card */}
           <h2>Results</h2>
           <p>
             Generated {numTerms} terms of the Tribonacci sequence{" "}
@@ -195,24 +220,10 @@ const TribonacciPage: React.FC = () => {
           </div>
         </section>
       )}
-
-      <section className="sequence-info">
-        <h2>About the Tribonacci Sequence</h2>
-        <p>
-          A Tribonacci number is a member of a sequence of integers in which
-          each term is the sum of the three preceding terms. The sequence can be
-          defined by the recurrence relation:
-        </p>
-        <p>
-          <code>T(n) = T(n-1) + T(n-2) + T(n-3)</code>
-        </p>
-        <p>
-          With initial values typically set as <code>T(0) = 0</code>,{" "}
-          <code>T(1) = 0</code>, and <code>T(2) = 1</code>. Other starting
-          values can also be used to generate different Tribonacci-like
-          sequences.
-        </p>
-        <h3>Connection to Automata Theory</h3>
+      <section className="sequence-automata-connection card">
+        {" "}
+        {/* Automata card */}
+        <h2>Connection to Automata Theory</h2>
         <p>
           While direct connections of the Tribonacci sequence to automata theory
           might be less prominent than for sequences like Fibonacci (e.g., in
