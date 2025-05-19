@@ -60,6 +60,12 @@ const App: React.FC = () => {
               >
                 Tribonacci
               </Link>
+              <Link
+                to="/about" // Added About link
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                About
+              </Link>
             </div>
           </div>
         </nav>
