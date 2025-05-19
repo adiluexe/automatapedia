@@ -101,19 +101,88 @@ const EuclideanPage: React.FC = () => {
       {showSteps && steps.length > 0 && (
         <section className="results">
           <h2>Algorithm Steps:</h2>
-          <div className="sequence-values euclidean-steps-display">
-            {steps.map((step, index) => (
-              <div key={index} className="euclidean-step">
-                {step.b !== 0
-                  ? `${step.a} = ${step.quotient} × ${step.b} + ${step.remainder}`
-                  : `The remainder is 0. So, GCD = ${step.a}`}
-              </div>
-            ))}
+          {gcdResult !== null && (
+            <p className="gcd-result-display">
+              {" "}
+              {/* Changed class for clarity */}
+              Result: GCD({numA}, {numB}) = <strong>{gcdResult}</strong>
+            </p>
+          )}
+          <div className="table-container">
+            {" "}
+            {/* Added container for scrolling if needed */}
+            <table className="euclidean-table">
+              <thead>
+                <tr>
+                  <th>Step</th>
+                  <th>Dividend</th>
+                  <th>Divisor</th>
+                  <th>Quotient</th>
+                  <th>Remainder</th>
+                  <th>Equation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {steps.map((step, index) => {
+                  // The actual last step for GCD calculation is when step.b becomes 0 in the *next* iteration.
+                  // The 'steps' array from executeEuclideanAlgorithm should give us rows where step.b is the divisor.
+                  // The last row in the table will have step.remainder === 0.
+                  if (step.b === 0) {
+                    // This step represents GCD(a,0)=a, usually not shown as a calculation row.
+                    // We'll rely on executeEuclideanAlgorithm to provide rows suitable for the table.
+                    // The last row in the table should be the one where remainder becomes 0.
+                    // For example, if steps are (48,18,2,12), (18,12,1,6), (12,6,2,0)
+                    // All three should be displayed.
+                    // The gcdResult is derived from the step where b becomes 0 (i.e. step.a of that conceptual final step)
+                    // or the 'a' from the last step if it's (a,0)
+                    // The table should display all calculation steps.
+                    // If executeEuclideanAlgorithm includes the (GCD, 0, 0, 0) step, we might want to exclude it or handle it.
+                    // For now, assume all steps in the 'steps' array are calculation steps A = B*Q + R.
+                    // The last step in the table will be the one where R = 0.
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{step.a}</td>
+                        <td>{step.b}</td>
+                        <td>{step.quotient}</td>
+                        <td>{step.remainder}</td>
+                        <td>
+                          {step.b !== 0
+                            ? `${step.a} = ${step.quotient} × ${step.b} + ${step.remainder}`
+                            : `${step.a} = GCD`}
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{step.a}</td>
+                      <td>{step.b}</td>
+                      <td>{step.quotient}</td>
+                      <td>{step.remainder}</td>
+                      <td>{`${step.a} = ${step.quotient} × ${step.b} + ${step.remainder}`}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
           {gcdResult !== null && (
-            <p className="gcd-result">
-              <strong>Greatest Common Divisor (GCD) = {gcdResult}</strong>
-            </p>
+            <div className="explanation-section">
+              <h3>Explanation:</h3>
+              <p>
+                The Euclidean algorithm works by repeatedly dividing the larger
+                number by the smaller one (Dividend by Divisor), and then using
+                its Remainder as the new Divisor in the next step (the previous
+                Divisor becomes the new Dividend).
+              </p>
+              <p>
+                The process continues until a Remainder of 0 is achieved. The
+                last non-zero Remainder is the Greatest Common Divisor (GCD). In
+                this case, the GCD of {numA} and {numB} is {gcdResult}.
+              </p>
+            </div>
           )}
         </section>
       )}

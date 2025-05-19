@@ -174,6 +174,14 @@
   color: var(--primary-color);
 }
 
+.gcd-result-display {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  text-align: left; /* Align with the table */
+}
+
 .algorithm-rules {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -235,4 +243,62 @@
   min-width: 2em; /* Ensure numbers have some width */
   text-align: center;
   font-family: var(--font-code, monospace);
+}
+
+.table-container {
+  overflow-x: auto; /* Add scroll for smaller screens */
+  margin-bottom: 1.5rem;
+}
+
+.euclidean-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.euclidean-table th,
+.euclidean-table td {
+  border: 1px solid var(--secondary-color);
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.euclidean-table th {
+  background-color: var(--background-color-light);
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.euclidean-table tbody tr:nth-child(even) {
+  background-color: var(--background-color-light);
+}
+
+.euclidean-table tbody tr:hover {
+  background-color: var(--secondary-color-t, rgba(199, 173, 148, 0.2));
+}
+
+.euclidean-table td:last-child {
+  text-align: left; /* Align equation to the left */
+  font-family: var(--font-code, monospace);
+}
+
+.explanation-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--background-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.explanation-section h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-size: 1.333rem; /* h5 size */
+}
+
+.explanation-section p {
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
 }
