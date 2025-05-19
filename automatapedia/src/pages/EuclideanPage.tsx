@@ -40,10 +40,19 @@ const EuclideanPage: React.FC = () => {
       : null;
 
   return (
-    <div className="container sequence-page">
-      <header className="sequence-header">
+    <div className="sequence-page-container">
+      {" "}
+      {/* Changed from "container sequence-page" */}
+      <header className="sequence-page-header">
+        {" "}
+        {/* Added header */}
         <h1>Euclidean Algorithm</h1>
-        <p className="sequence-intro">
+      </header>
+      <section className="sequence-intro-section card">
+        {" "}
+        {/* Intro card */}
+        <h2>What is the Euclidean Algorithm?</h2>
+        <p>
           The Euclidean algorithm is an efficient method for computing the
           greatest common divisor (GCD) of two integers. It is named after the
           ancient Greek mathematician Euclid, who described it in his Elements
@@ -53,15 +62,15 @@ const EuclideanPage: React.FC = () => {
           <p>The algorithm is based on the following principles:</p>
           <ol>
             <li>
-              Pokud <code>A = 0</code> pak <code>GCD(A,B) = B</code>. Pokud{" "}
-              <code>B = 0</code> pak <code>GCD(A,B) = A</code>.
+              If <code>A = 0</code> then <code>GCD(A,B) = B</code>. If{" "}
+              <code>B = 0</code> then <code>GCD(A,B) = A</code>.
             </li>
             <li>
-              Napište <code>A = B*Q + R</code> kde <code>Q</code> je podíl a{" "}
-              <code>R</code> je zbytek.
+              Write <code>A = B*Q + R</code> where <code>Q</code> is the
+              quotient and <code>R</code> is the remainder.
             </li>
             <li>
-              Potom <code>GCD(A,B) = GCD(B,R)</code>.
+              Then <code>GCD(A,B) = GCD(B,R)</code>.
             </li>
           </ol>
           <p>
@@ -70,9 +79,10 @@ const EuclideanPage: React.FC = () => {
             becomes zero. The last non-zero remainder is the GCD.
           </p>
         </div>
-      </header>
-
-      <section className="interactive-generator">
+      </section>
+      <section className="sequence-generator-section card">
+        {" "}
+        {/* Generator card */}
         <h2>Generate Euclidean Algorithm Steps</h2>
         <div className="input-grid">
           <label htmlFor="numA">First Number:</label>
@@ -97,20 +107,19 @@ const EuclideanPage: React.FC = () => {
           Calculate GCD
         </button>
       </section>
-
       {showSteps && steps.length > 0 && (
-        <section className="results">
-          <h2>Algorithm Steps:</h2>
+        <section className="results card">
+          {" "}
+          {/* Results card */}
+          <h2>Algorithm Steps</h2>
           {gcdResult !== null && (
             <p className="gcd-result-display">
               {" "}
-              {/* Changed class for clarity */}
               Result: GCD({numA}, {numB}) = <strong>{gcdResult}</strong>
             </p>
           )}
           <div className="table-container">
             {" "}
-            {/* Added container for scrolling if needed */}
             <table className="euclidean-table">
               <thead>
                 <tr>
@@ -186,8 +195,9 @@ const EuclideanPage: React.FC = () => {
           )}
         </section>
       )}
-
-      <section className="sequence-info">
+      <section className="sequence-automata-connection card">
+        {" "}
+        {/* Automata card */}
         <h2>Connection to Automata Theory</h2>
         <p>
           The Euclidean algorithm can be modeled as a state machine where each
