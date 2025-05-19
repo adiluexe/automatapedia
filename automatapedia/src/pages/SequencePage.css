@@ -58,7 +58,7 @@
   padding: 0.75rem;
   border: 1px solid var(--secondary-color);
   border-radius: 4px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Chivo', sans-serif; /* Updated font */
   color: var(--text-color);
   background-color: #fff; /* Or a very light background */
   width: 100px; /* Adjust as needed */
@@ -98,8 +98,8 @@
   color: var(--background-color);
   border: none;
   border-radius: 4px;
-  font-family: 'Syne', sans-serif;
-  font-weight: bold;
+  font-family: 'Chivo', sans-serif; /* Updated font */
+  font-weight: 700; /* Adjusted font weight */
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }

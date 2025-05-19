@@ -74,142 +74,164 @@ const FibonacciPage: React.FC = () => {
 
   return (
     <div className="container sequence-page">
-      <header className="sequence-header">
-        <h1>Fibonacci Sequence</h1>
-        <p className="sequence-intro">
-          The Fibonacci sequence is a series of numbers where each number is the
-          sum of the two preceding ones, usually starting with 0 and 1.
-        </p>
-      </header>
+      <div className="card">
+        {" "}
+        {/* Added card wrapper for header */}
+        <header className="sequence-header">
+          <h1>Fibonacci Sequence</h1>
+          <p className="sequence-intro">
+            The Fibonacci sequence is a series of numbers where each number is
+            the sum of the two preceding ones, usually starting with 0 and 1.
+            That is, <code>F(0) = 0</code>, <code>F(1) = 1</code>, and{" "}
+            <code>F(n) = F(n-1) + F(n-2)</code> for <code>n &gt; 1</code>.
+          </p>
+        </header>
+      </div>
 
-      <section className="interactive-generator">
-        <h2>Generate Sequence</h2>
-        <div className="input-grid">
-          <label htmlFor="numTerms">Number of Terms:</label>
-          <input
-            type="number"
-            id="numTerms"
-            value={numTermsInput}
-            onChange={(e) => {
-              setNumTermsInput(e.target.value);
-              setShowSequence(false); // Hide results when input changes
-            }}
-            min="1"
-            max="70"
-          />
-          <label htmlFor="firstTerm">First Term (F0):</label>
-          <input
-            type="number"
-            id="firstTerm"
-            value={firstTermInput}
-            onChange={(e) => {
-              setFirstTermInput(e.target.value);
-              setShowSequence(false);
-            }}
-          />
-          <label htmlFor="secondTerm">Second Term (F1):</label>
-          <input
-            type="number"
-            id="secondTerm"
-            value={secondTermInput}
-            onChange={(e) => {
-              setSecondTermInput(e.target.value);
-              setShowSequence(false);
-            }}
-          />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <button onClick={handleGenerateSequence} className="generate-button">
-          Generate
-        </button>
-      </section>
+      <div className="card">
+        {" "}
+        {/* Added card wrapper for generator */}
+        <section className="interactive-generator">
+          <h2>Generate Fibonacci Sequence</h2>
+          <div className="input-grid">
+            <label htmlFor="numTerms">Number of terms:</label>
+            <input
+              type="number"
+              id="numTerms"
+              value={numTermsInput}
+              onChange={(e) => {
+                setNumTermsInput(e.target.value);
+                setShowSequence(false); // Hide results when input changes
+              }}
+              min="1"
+              max="70"
+            />
+            <label htmlFor="firstTerm">First Term (F0):</label>
+            <input
+              type="number"
+              id="firstTerm"
+              value={firstTermInput}
+              onChange={(e) => {
+                setFirstTermInput(e.target.value);
+                setShowSequence(false);
+              }}
+            />
+            <label htmlFor="secondTerm">Second Term (F1):</label>
+            <input
+              type="number"
+              id="secondTerm"
+              value={secondTermInput}
+              onChange={(e) => {
+                setSecondTermInput(e.target.value);
+                setShowSequence(false);
+              }}
+            />
+          </div>
+          {error && <p className="error-message">{error}</p>}
+          <button onClick={handleGenerateSequence} className="generate-button">
+            Generate
+          </button>
+        </section>
+      </div>
 
       {showSequence && sequence.length > 0 && (
-        <section className="results">
-          <h2>Results</h2>
-          <p>
-            Generated {sequence.length} terms of the Fibonacci sequence starting
-            with F(0) = {firstTerm}, F(1) = {secondTerm}.
-          </p>
-          <div className="visualization-placeholder chart-container">
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart
-                data={chartData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="var(--border-color)"
-                />
-                <XAxis
-                  dataKey="term"
-                  name="Term (n)"
-                  stroke="var(--text-color)"
-                />
-                <YAxis
-                  name="Value F(n)"
-                  stroke="var(--text-color)"
-                  allowDataOverflow={true}
-                  domain={["auto", "auto"]}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "var(--background-color-light)",
-                    borderColor: "var(--border-color)",
+        <div className="card">
+          {" "}
+          {/* Added card wrapper for results */}
+          <section className="results">
+            <h2>Results</h2>
+            <p>
+              Generated {sequence.length} terms of the Fibonacci sequence
+              starting with F(0) = {firstTerm} and F(1) = {secondTerm}.
+            </p>
+            <div className="visualization-placeholder chart-container">
+              <ResponsiveContainer width="100%" height={400}>
+                <LineChart
+                  data={chartData}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
                   }}
-                  itemStyle={{ color: "var(--text-color)" }}
-                  formatter={(value: number) => value.toLocaleString()} // Format large numbers
-                />
-                <Legend wrapperStyle={{ color: "var(--text-color)" }} />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  name="Fibonacci Value"
-                  stroke="var(--primary-color)"
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="sequence-values">
-            <h3>Sequence Values:</h3>
-            <div className="sequence-list">
-              {sequence.map((num, index) => (
-                <code key={index} className="sequence-element">
-                  F({index}) = {num.toLocaleString()}
-                  {index < sequence.length - 1 ? ", " : ""}
-                </code>
-              ))}
+                >
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--border-color)"
+                  />
+                  <XAxis
+                    dataKey="term"
+                    name="Term (n)"
+                    stroke="var(--text-color)"
+                  />
+                  <YAxis
+                    name="Value F(n)"
+                    stroke="var(--text-color)"
+                    allowDataOverflow={true}
+                    domain={["auto", "auto"]}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "var(--background-color-light)",
+                      borderColor: "var(--border-color)",
+                    }}
+                    itemStyle={{ color: "var(--text-color)" }}
+                    formatter={(value: number) => value.toLocaleString()} // Format large numbers
+                  />
+                  <Legend wrapperStyle={{ color: "var(--text-color)" }} />
+                  <Line
+                    type="monotone"
+                    dataKey="value"
+                    name="Fibonacci Value"
+                    stroke="var(--primary-color)"
+                    activeDot={{ r: 8 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
-          </div>
-        </section>
+            <div className="sequence-values">
+              <h3>Sequence Values:</h3>
+              <div className="sequence-list">
+                {sequence.map((num, index) => (
+                  <code key={index} className="sequence-element">
+                    F({index}) = {num.toLocaleString()}
+                    {index < sequence.length - 1 ? ", " : ""}
+                  </code>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
       )}
 
-      <section className="sequence-info">
-        <h2>About the Fibonacci Sequence</h2>
-        <p>
-          The Fibonacci sequence is defined by the recurrence relation:
-          <code>F(n) = F(n-1) + F(n-2)</code> with seed values typically
-          <code>F(0) = 0</code> and <code>F(1) = 1</code>.
-        </p>
-        <h3>Connection to Automata Theory</h3>
-        <p>
-          The Fibonacci sequence can be generated by a simple finite automaton
-          with a recursive structure. This connection demonstrates how even
-          complex sequences can emerge from simple computational rules.
-        </p>
-        <p>
-          Additionally, the golden ratio (approximately 1.618), which is closely
-          related to the Fibonacci sequence, appears in various aspects of
-          automata theory, including optimal state minimization algorithms and
-          the structure of certain regular languages.
-        </p>
-      </section>
+      <div className="card">
+        {" "}
+        {/* Added card wrapper for info */}
+        <section className="sequence-info">
+          <h2>About the Fibonacci Sequence</h2>
+          <p>
+            The Fibonacci sequence is named after Leonardo of Pisa, known as
+            Fibonacci, who introduced the sequence to Western European
+            mathematics in his 1202 book Liber Abaci.
+          </p>
+          <p>
+            It appears in many areas of mathematics and nature, such as the
+            branching of trees, the arrangement of leaves on a stem, the fruit
+            sprouts of a pineapple, the flowering of artichoke, an uncurling
+            fern and the arrangement of a pine cone's bracts.
+          </p>
+          <h3>Connection to Automata Theory</h3>
+          <p>
+            Fibonacci numbers appear in the analysis of certain types of
+            automata and formal languages. For example, the number of binary
+            strings of length <code>n</code> that do not contain two consecutive
+            1s is given by the Fibonacci number <code>F(n+2)</code>. This can be
+            shown by constructing a finite automaton that accepts such strings.
+            The study of growth functions of languages, which count the number
+            of words of a given length, often involves sequences like Fibonacci.
+          </p>
+        </section>
+      </div>
     </div>
   );
 };

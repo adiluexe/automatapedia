@@ -4,4 +4,7 @@
   --primary-color: #998975;
   --secondary-color: #c2b7a8;
   --accent-color: #af9d88;
+  --border-color: var(--secondary-color); /* Added for explicit border control */
+  --background-color-light: #fdfdfc; /* A slightly lighter background for cards or inputs if needed */
+  --secondary-color-t: rgba(194, 183, 168, 0.1); /* Transparent version of secondary for subtle backgrounds */
 }
