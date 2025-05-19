@@ -1,24 +1,17 @@
 export const generateFibonacciSequence = (
-  terms: number,
-  startValues?: [number, number]
+  count: number,
+  a?: number, // Make 'a' optional
+  b?: number // Make 'b' optional
 ): number[] => {
-  if (terms <= 0) {
-    return [];
+  const startA = a === undefined ? 0 : a;
+  const startB = b === undefined ? (startA === 0 ? 1 : startA) : b; // Default b based on a if not provided
+
+  if (count <= 0) return [];
+  if (count === 1) return [startA];
+
+  const sequence = [startA, startB];
+  for (let i = 2; i < count; i++) {
+    sequence.push(sequence[i - 1] + sequence[i - 2]);
   }
-
-  const a = startValues ? startValues[0] : 0;
-  const b = startValues ? startValues[1] : 1;
-
-  if (terms === 1) {
-    return [a];
-  }
-
-  const sequence: number[] = [a, b];
-
-  for (let i = 2; i < terms; i++) {
-    const nextValue = sequence[i - 1] + sequence[i - 2];
-    sequence.push(nextValue);
-  }
-
-  return sequence;
+  return sequence.slice(0, count); // Ensure correct length
 };
