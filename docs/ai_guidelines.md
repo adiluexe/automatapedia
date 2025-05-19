@@ -1,0 +1,152 @@
+Automatapedia: AI Guidelines1. Introduction\* **1.1 Project Name:** Automatapedia
+
+- **1.2 Project Goal:** To create an interactive web application that visualizes and generates mathematical sequences related to automata theory, providing an educational and engaging tool for students and enthusiasts.
+- **1.3 Target Audience:**
+  - Students studying automata theory, discrete mathematics, or computer science.
+  - Educators teaching these subjects.
+  - Individuals interested in mathematical sequences and computational patterns.
+
+2.  Features and Functionality\* **2.1 Core Features:**
+    - **Sequence Generation:**
+      - Collatz sequence:
+        - User Input: Starting number.
+        - Visualization: Display the sequence as a list, with options to highlight specific elements or steps.
+        - Information: Explanation of the Collatz conjecture, examples, and its relevance to computation.
+      - Euclidean algorithm:
+        - User Input: Two positive integers.
+        - Visualization: Show the step-by-step execution of the algorithm, highlighting the intermediate quotients and remainders.
+        - Information: Explanation of the Euclidean algorithm, its applications in finding the greatest common divisor, and its connection to number theory.
+      - Fibonacci sequence:
+        - User Input: Number of terms to generate (optional: starting values).
+        - Visualization: Display the sequence as a list, with options to visualize the growth of the numbers.
+        - Information: Definition of the Fibonacci sequence, its mathematical properties, and its occurrence in various natural phenomena.
+      - Tribonacci sequence:
+        - User Input: Number of terms to generate (optional: starting values).
+        - Visualization: Display the sequence as a list.
+        - Information: Definition and mathematical properties.
+      - Lucas sequence:
+        - User Input: Number of terms to generate.
+        - Visualization: Display the sequence as a list.
+        - Information: Definition and mathematical properties, relation to Fibonacci.
+      - Pascal's triangle:
+        - User Input: Number of rows to generate.
+        - Visualization: Display the triangle using HTML canvas or SVG, with interactive elements to highlight rows, diagonals, and individual elements.
+        - Information: Explanation of Pascal's triangle, its combinatorial properties, and its relationship to the binomial theorem.
+    - **Interactive Visualization:**
+      - Use React components to create dynamic and interactive visualizations for each sequence.
+      - Incorporate animations to illustrate the generation or progression of the sequences.
+      - Provide tooltips or hover effects to display additional information about sequence elements.
+    - **User Input:**
+      - Implement React forms with appropriate input validation to handle user-defined parameters for sequence generation.
+      - Ensure that the input fields are clearly labeled and provide feedback to the user on invalid input.
+    - **Information Display:**
+      - Create React components to display the descriptive information for each sequence, including mathematical formulas, examples, and connections to automata theory.
+      - Use a consistent layout and styling for the information display across all sequence pages.
+3.  Design and User Experience\* **3.1 Overall Theme:**
+    - **Vintage with a Modern Twist:**
+      - Incorporate a muted color palette with contrasting accents (e.g., aged paper, dark wood, and metallic details).
+      - Use subtle textures and patterns reminiscent of vintage paper or mechanical designs.
+      - Combine classic typography with modern UI elements to create a unique and engaging aesthetic.
+
+- **3.2 Typography:**
+  - **Typewriter-Style Font:**
+    - Use a typewriter-style font (e.g., Courier New, Special Elite) for headings and body text to evoke a vintage feel.
+    - Ensure readability by using an appropriate font size and line height.
+  - **Modern Sans-Serif Font:**
+    - Use a modern sans-serif font (e.g., Open Sans, Lato) for supplementary information, UI elements, or navigation to provide clarity and contrast.
+    - Maintain consistency in font usage throughout the application.
+- **3.3 Animations:**
+  - **Smooth and Subtle Animations:**
+    - Use React Transition Group or Framer Motion to create smooth and subtle animations that enhance the user experience.
+    - Animate the generation or progression of sequences to provide visual feedback and illustrate the underlying mathematical concepts.
+    - Incorporate hover effects, transitions, and other interactive animations to make the application more engaging.
+- **3.4 Layout and Structure:**
+  - **Responsive Design:**
+    - Use React and CSS Grid/Flexbox to create a responsive layout that adapts to different screen sizes (desktops, tablets, and smartphones).
+    - Ensure that the application is accessible and functional across various devices.
+  - **Consistent Layout:**
+    - Maintain a clear and consistent layout across all pages and sections of the application.
+    - Use white space effectively to create a clean and uncluttered design.
+    - Group related elements logically to improve usability.
+  - **Navigation:**
+    - Implement a clear and intuitive navigation system using React Router to allow users to easily access different sequence generators and information pages.
+    - Consider using a visually appealing navigation bar or menu that fits the vintage theme.
+
+4.  Technical Guidelines\* **4.1 Tech Stack:**
+    - **Frontend:**
+      - **React:** Use React to build the user interface and manage the application's state.
+      - **HTML:** Use semantic HTML to structure the web pages.
+      - **CSS:**
+        - Use modern CSS techniques, including CSS Grid and Flexbox, for layout and styling.
+        - Incorporate CSS animations and transitions to enhance the user experience.
+        - Consider using a CSS preprocessor (e.g., Sass) or a CSS-in-JS library (e.g., Styled Components) for better organization and maintainability.
+      - **JavaScript:**
+        - Use modern JavaScript (ES6+) syntax and features.
+      - **React Router:** For routing and navigation.
+      - **Framer Motion or React Transition Group:** For animations.
+    - **Backend (Optional):**
+      - If necessary for data persistence or more complex calculations:
+        - **Node.js with Express:** A popular choice for building RESTful APIs.
+    - **Database (Optional):**
+      - If you need to store user data or other information:
+        - **SQLite:** For simple, file-based storage.
+        - **PostgreSQL:** For a more robust and scalable solution.
+
+- **4.2 Code Structure and Best Practices:**
+  - **Component-Based Architecture:**
+    - Break down the UI into reusable React components.
+    - Follow a consistent component structure (e.g., functional components with hooks).
+  - **State Management:**
+    - Use React's useState and useContext hooks for local and global state management, respectively.
+    - For more complex state management needs, consider using a library like Redux or Zustand.
+  - **Code Organization:**
+    - Organize your codebase into logical directories and files.
+    - Use clear and descriptive names for variables, functions, and components.
+  - **Comments:**
+    - Write clear and concise comments to explain complex logic and improve code readability.
+  - **Error Handling:**
+    - Implement robust error handling to catch and handle unexpected errors gracefully.
+    - Provide informative error messages to the user.
+  - **Input Validation:**
+    - Validate user input to prevent invalid data from being processed.
+    - Provide clear feedback to the user on input errors.
+  - **Accessibility:**
+    - Follow WCAG guidelines to ensure that the application is accessible to users with disabilities.
+    - Use semantic HTML, provide alternative text for images, and ensure keyboard navigation support.
+- **4.3 Animation Guidelines:**
+  - **Performance:**
+    - Optimize animations for performance to ensure smooth and fluid motion.
+    - Use hardware acceleration where possible.
+  - **Subtlety:**
+    - Use animations subtly to enhance the user experience without being distracting.
+  - **Consistency:**
+    - Maintain consistency in animation style and duration throughout the application.
+  - **User Control:**
+    - Consider providing users with options to control or disable animations if needed.
+
+5.  Content Guidelines\* **5.1 Sequence Information:**
+    - **Accuracy:** Ensure that all mathematical information and explanations are accurate and correct.
+    - **Clarity:** Present the information in a clear and concise manner that is easy to understand for the target audience.
+    - **Completeness:** Include all relevant details about each sequence, including its definition, mathematical properties, examples, and connections to automata theory.
+    - **Citations:** Provide links to external resources and references for further reading.
+
+- **5.2 Visualizations:**
+  - **Clarity:** Design visualizations that are easy to understand and interpret.
+  - **Interactivity:** Make the visualizations interactive to allow users to explore the sequences and patterns.
+  - **Accuracy:** Ensure that the visualizations accurately represent the generated sequences.
+  - **Aesthetics:** Design visualizations that are visually appealing and consistent with the overall theme of the application.
+- **5.3 Language and Tone:**
+  - Use a consistent and appropriate language and tone throughout the application.
+  - Write in a clear, concise, and engaging style.
+  - Avoid jargon or technical terms that may not be familiar to the target audience.
+
+6.  Tools and Technologies\* **6.1 Development Tools:**
+    - **Integrated Development Environment (IDE):** Visual Studio Code, or similar
+    - **Version Control System:** Git
+    - **Package Manager:** npm or yarn
+
+- **6.2 Libraries and Frameworks:**
+  - **React**
+  - **React Router**
+  - **Framer Motion or React Transition Group**
+  - **Any other relevant libraries**
