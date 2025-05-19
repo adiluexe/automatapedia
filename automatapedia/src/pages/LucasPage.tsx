@@ -50,19 +50,52 @@ const LucasPage: React.FC = () => {
   const chartData = sequence.map((value, index) => ({ term: index, value }));
 
   return (
-    <div className="container sequence-page">
-      <header className="sequence-header">
+    <div className="sequence-page-container">
+      {" "}
+      {/* Changed from "container sequence-page" */}
+      <header className="sequence-page-header">
+        {" "}
+        {/* Added header */}
         <h1>Lucas Sequence</h1>
-        <p className="sequence-intro">
+      </header>
+      <section className="sequence-intro-section card">
+        {" "}
+        {/* Intro card */}
+        <h2>What is the Lucas Sequence?</h2>
+        <p>
           The Lucas sequence is a sequence of integers closely related to the
           Fibonacci sequence. It follows the same recurrence relation (each term
           is the sum of the two preceding ones), but with different starting
           values: <code>L(0) = 2</code> and <code>L(1) = 1</code>. The first few
           terms are: 2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123, ...
         </p>
-      </header>
-
-      <section className="interactive-generator">
+        <h4>Mathematical Properties</h4>
+        <ul>
+          <li>
+            The ratio of consecutive Lucas numbers converges to the golden ratio
+            (approximately 1.618).
+          </li>
+          <li>
+            Lucas numbers are related to Fibonacci numbers by the identity:{` `}
+            <code>L(n) = F(n-1) + F(n+1)</code>.
+          </li>
+          <li>
+            The sum of the first n Lucas numbers is <code>L(n+2) - 3</code>.
+          </li>
+          <li>
+            Lucas numbers appear in various combinatorial problems and number
+            theory.
+          </li>
+        </ul>
+        <p>
+          The Lucas sequence demonstrates how simple recurrence relations can
+          produce numbers with rich mathematical properties and connections to
+          other sequences.
+        </p>
+      </section>
+      <section className="sequence-generator-section card">
+        {" "}
+        {/* Generator card */}
         <h2>Generate Lucas Sequence</h2>
         <div className="input-grid">
           <label htmlFor="numTerms">Number of Terms:</label>
@@ -80,10 +113,11 @@ const LucasPage: React.FC = () => {
           Generate
         </button>
       </section>
-
       {showSequence && sequence.length > 0 && (
-        <section className="results">
-          <h2>Results:</h2>
+        <section className="results card">
+          {" "}
+          {/* Results card */}
+          <h2>Results</h2> {/* Changed from Results: */}
           <p>Generated {numTerms} terms of the Lucas sequence.</p>{" "}
           {/* Use numTerms state */}
           <div className="visualization-placeholder chart-container">
@@ -139,32 +173,10 @@ const LucasPage: React.FC = () => {
           </div>
         </section>
       )}
-
-      <section className="sequence-info">
-        <h2>Mathematical Properties</h2>
-        <ul>
-          <li>
-            The ratio of consecutive Lucas numbers converges to the golden ratio
-            (approximately 1.618).
-          </li>
-          <li>
-            Lucas numbers are related to Fibonacci numbers by the identity:{" "}
-            <code>L(n) = F(n-1) + F(n+1)</code>.
-          </li>
-          <li>
-            The sum of the first n Lucas numbers is <code>L(n+2) - 3</code>.
-          </li>
-          <li>
-            Lucas numbers appear in various combinatorial problems and number
-            theory.
-          </li>
-        </ul>
-        <p>
-          The Lucas sequence demonstrates how simple recurrence relations can
-          produce numbers with rich mathematical properties and connections to
-          other sequences.
-        </p>
-        <h3>Connection to Automata Theory</h3>
+      <section className="sequence-automata-connection card">
+        {" "}
+        {/* Automata card */}
+        <h2>Connection to Automata Theory</h2>
         <p>
           Similar to Fibonacci numbers, Lucas numbers can appear in the context
           of automata theory, particularly in the analysis of the number of
