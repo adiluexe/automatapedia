@@ -36,6 +36,15 @@ const App: React.FC = () => {
                 <Link to="/fibonacci">Fibonacci</Link>
               </li>
               <li>
+                <Link to="/tribonacci">Tribonacci</Link>
+              </li>
+              <li>
+                <Link to="/lucas">Lucas</Link>
+              </li>
+              <li>
+                <Link to="/euclidean">Euclidean</Link>
+              </li>
+              <li>
                 <Link to="/pascal">Pascal</Link>
               </li>
               <li>

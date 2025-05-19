@@ -10,7 +10,7 @@
 /* Navigation Bar */
 .main-nav {
   background-color: var(--background-color); /* Or a slightly different shade if desired */
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem; /* Increased padding for a larger header */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid var(--secondary-color);
   width: 100%;
@@ -27,7 +27,7 @@
 
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; /* Adjust as needed */
+  font-size: 2rem; /* Increased font size for the logo */
   color: var(--primary-color);
   text-decoration: none;
 }
@@ -40,13 +40,14 @@
 }
 
 .nav-links li {
-  margin-left: 1.5rem; /* Adjust as needed */
+  margin-left: 2rem; /* Increased margin for more spacing */
 }
 
 .nav-links li a {
   text-decoration: none;
   color: var(--text-color);
   font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; /* Increased font size for nav links */
 }
 
 .nav-links li a:hover {
