@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion
+import HomePage from "./pages/HomePage";
 import CollatzPage from "./pages/CollatzPage";
 import EuclideanPage from "./pages/EuclideanPage";
 import FibonacciPage from "./pages/FibonacciPage";
@@ -12,109 +13,125 @@ import "./index.css"; // Ensure global styles are imported
 const App: React.FC = () => {
   return (
     <Router>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Automatapedia</Link>
-            </li>{" "}
-            {/* Added Home/Brand Link */}
-            <li>
-              <Link to="/collatz">Collatz</Link>
-            </li>
-            <li>
-              <Link to="/euclidean">Euclidean</Link>
-            </li>
-            <li>
-              <Link to="/fibonacci">Fibonacci</Link>
-            </li>
-            <li>
-              <Link to="/lucas">Lucas</Link>
-            </li>
-            <li>
-              <Link to="/pascal">Pascal's Triangle</Link>
-            </li>
-            <li>
-              <Link to="/tribonacci">Tribonacci</Link>
-            </li>
-          </ul>
+      <div className="flex flex-col min-h-screen bg-background text-text font-body">
+        {/* Header component will go here */}
+        <nav className="bg-background shadow-md">
+          <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+            <Link to="/" className="font-heading text-2xl text-primary">
+              Automatapedia
+            </Link>
+            <div>
+              <Link to="/" className="text-text hover:text-primary px-3 py-2">
+                Home
+              </Link>
+              <Link
+                to="/collatz"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Collatz
+              </Link>
+              <Link
+                to="/euclidean"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Euclidean
+              </Link>
+              <Link
+                to="/fibonacci"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Fibonacci
+              </Link>
+              <Link
+                to="/lucas"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Lucas
+              </Link>
+              <Link
+                to="/pascal"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Pascal
+              </Link>
+              <Link
+                to="/tribonacci"
+                className="text-text hover:text-primary px-3 py-2"
+              >
+                Tribonacci
+              </Link>
+            </div>
+          </div>
         </nav>
-      </header>
-      <main className="page-container">
-        {" "}
-        {/* Added page-container for consistent padding/width */}
-        <Routes>
-          {/* Basic Home Page for now */}
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/collatz"
-            element={
-              <AnimatedPage>
-                <CollatzPage />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/euclidean"
-            element={
-              <AnimatedPage>
-                <EuclideanPage />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/fibonacci"
-            element={
-              <AnimatedPage>
-                <FibonacciPage />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/lucas"
-            element={
-              <AnimatedPage>
-                <LucasPage />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/pascal"
-            element={
-              <AnimatedPage>
-                <PascalPage />
-              </AnimatedPage>
-            }
-          />
-          <Route
-            path="/tribonacci"
-            element={
-              <AnimatedPage>
-                <TribonacciPage />
-              </AnimatedPage>
-            }
-          />
-        </Routes>
-      </main>
+
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/collatz"
+              element={
+                <AnimatedPage>
+                  <CollatzPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/euclidean"
+              element={
+                <AnimatedPage>
+                  <EuclideanPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/fibonacci"
+              element={
+                <AnimatedPage>
+                  <FibonacciPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/lucas"
+              element={
+                <AnimatedPage>
+                  <LucasPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/pascal"
+              element={
+                <AnimatedPage>
+                  <PascalPage />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/tribonacci"
+              element={
+                <AnimatedPage>
+                  <TribonacciPage />
+                </AnimatedPage>
+              }
+            />
+          </Routes>
+        </main>
+
+        {/* Footer component will go here */}
+        <footer className="bg-background border-t border-secondary mt-10">
+          <div className="container mx-auto px-6 py-4 flex justify-between items-center text-sm text-text">
+            <p>&copy; 2025 Automatapedia</p>
+            <p>
+              An interactive journey through mathematical sequences & automata
+              theory
+            </p>
+          </div>
+        </footer>
+      </div>
     </Router>
   );
 };
-
-// Simple Home Page Component
-const HomePage: React.FC = () => (
-  <motion.div
-    className="container"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-    <h1>Welcome to Automatapedia!</h1>
-    <p style={{ textAlign: "center", fontSize: "1.2em" }}>
-      Explore mathematical sequences and algorithms with interactive
-      visualizations. Select a sequence from the navigation bar to get started.
-    </p>
-  </motion.div>
-);
 
 // Wrapper for page animations
 const AnimatedPage: React.FC<{ children: React.ReactNode }> = ({
