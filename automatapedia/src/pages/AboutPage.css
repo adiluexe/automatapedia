@@ -110,3 +110,79 @@
 .about-page-container .card strong {
   color: var(--primary-color);
 }
+
+/* Glossary specific styles */
+.glossary-card dt {
+  font-family: var(--font-heading); /* Or 'Chivo Mono', monospace if preferred for terms */
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 1rem;
+}
+
+.glossary-card dd {
+  font-family: var(--font-body); /* 'Chivo', sans-serif */
+  color: var(--text-color);
+  margin-left: 1.5rem; /* Indent definition */
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.glossary-card dt:first-child {
+  margin-top: 0;
+}
+
+.about-page-container .card .available-sequences-list li {
+  margin-bottom: 0.75rem; /* Add some spacing between list items */
+}
+
+.about-page-container .card .available-sequences-list a {
+  font-family: var(--font-body);
+  color: var(--accent-color-1); /* Use a distinct color for links */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-small);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-page-container .card .available-sequences-list a:hover,
+.about-page-container .card .available-sequences-list a:focus {
+  background-color: var(--accent-color-1);
+  color: var(--background-color-light);
+  text-decoration: none;
+  outline: none;
+}
+
+.about-page .available-sequences-list li a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius-medium);
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-page .available-sequences-list li a:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color); /* White-ish background color for text */
+    text-decoration: none;
+    border-color: var(--accent-color);
+}
+
+.about-page .glossary-terms dt {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-top: var(--spacing-medium);
+}
+
+.about-page .glossary-terms dd {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    margin-left: var(--spacing-medium);
+    margin-bottom: var(--spacing-small);
+    padding-left: var(--spacing-small);
+    border-left: 2px solid var(--secondary-color);
+}
