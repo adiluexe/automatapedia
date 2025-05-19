@@ -65,6 +65,33 @@
   text-align: right;
 }
 
+.input-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 20px; /* Row gap, Column gap */
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 500px; /* Constrain width for better readability */
+}
+
+.input-grid label {
+  text-align: right;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.input-grid input[type="number"] {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background-color: var(--background-color-light);
+  color: var(--text-color);
+  width: 100%; /* Make input take full width of its grid cell */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 .generate-button {
   padding: 0.75rem 1.5rem;
   background-color: var(--primary-color);
@@ -133,3 +160,9 @@
 }
 
 /* Specific to Collatz Page if needed, or keep general */
+
+/* Specific grid for Tribonacci to handle more inputs if needed */
+.tribonacci-grid {
+    grid-template-columns: auto 1fr; /* Keeps 2 columns for label and input */
+    /* If more complex layout is needed, adjust here. For now, it's similar to input-grid */
+}

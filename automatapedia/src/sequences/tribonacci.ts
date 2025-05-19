@@ -1,28 +1,24 @@
 export const generateTribonacciSequence = (
-  terms: number,
-  startValues?: [number, number, number]
+  count: number,
+  a?: number, // Make 'a' optional
+  b?: number, // Make 'b' optional
+  c?: number // Make 'c' optional
 ): number[] => {
-  if (terms <= 0) {
-    return [];
-  }
+  const startA = a === undefined ? 0 : a;
+  const startB = b === undefined ? (startA === 0 ? 0 : startA) : b; // Default b based on a
+  const startC =
+    c === undefined ? (startA === 0 && startB === 0 ? 1 : startB) : c; // Default c based on a and b
 
-  const a = startValues ? startValues[0] : 0;
-  const b = startValues ? startValues[1] : 0;
-  const c = startValues ? startValues[2] : 1;
+  if (count <= 0) return [];
+  if (count === 1) return [startA];
+  if (count === 2) return [startA, startB];
 
-  if (terms === 1) {
-    return [a];
-  }
-  if (terms === 2) {
-    return [a, b];
-  }
+  const sequence: number[] = [startA, startB, startC];
 
-  const sequence: number[] = [a, b, c];
-
-  for (let i = 3; i < terms; i++) {
+  for (let i = 3; i < count; i++) {
     const nextValue = sequence[i - 1] + sequence[i - 2] + sequence[i - 3];
     sequence.push(nextValue);
   }
 
-  return sequence;
+  return sequence.slice(0, count); // Ensure correct length
 };
