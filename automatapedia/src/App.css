@@ -1,21 +1,201 @@
+/* General App Layout */
 #root {
-  max-width: 1280px;
+  max-width: 100%; /* Allow full width */
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0; /* Remove padding, handle in components */
+  text-align: left; /* Default to left align */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Navigation Bar */
+nav {
+  background-color: var(--card-bg-light);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border-color-light);
+  width: 100%;
+  box-sizing: border-box;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+@media (prefers-color-scheme: dark) {
+  nav {
+    background-color: var(--card-bg-dark);
+    border-bottom: 1px solid var(--border-color-dark);
+  }
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Center nav items */
+  gap: 1.5rem; /* Space between nav items */
+}
+
+nav ul li a {
+  font-weight: 500;
+  font-size: 1.1em;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Main Content Area */
+.page-container {
+  flex-grow: 1; /* Allow content to take available space */
+  width: 100%;
+  max-width: 1200px; /* Max width for content */
+  margin: 0 auto; /* Center content */
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Container for sequence pages */
+.container {
+  background-color: var(--card-bg-light);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem; /* Space below each sequence container */
+  border: 1px solid var(--border-color-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--border-color-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.container h1 {
+  text-align: center; /* Center page titles */
+  color: var(--primary-color-light);
+  margin-bottom: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container h1 {
+    color: var(--primary-color-dark);
+  }
+}
+
+/* Input and Form Styling */
+.input-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column; /* Stack label and input */
+  gap: 0.5rem;
+}
+
+.input-container label {
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.input-container input[type="number"] {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color-light);
+  border-radius: 6px;
+  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+.input-container input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color-light);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  .input-container input[type="number"] {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+    border: 1px solid var(--border-color-dark);
+  }
+  .input-container input[type="number"]:focus {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 0 3px rgba(0, 174, 255, 0.25);
+  }
+}
+
+/* Sequence Display Styling */
+.sequence-container, .euclidean-steps-container, .pascal-triangle-container {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: #f9f9f9; /* Slightly different background for emphasis */
+  border-radius: 6px;
+  border: 1px solid var(--border-color-light);
+  overflow-x: auto; /* Ensure responsiveness */
+}
+
+@media (prefers-color-scheme: dark) {
+  .sequence-container, .euclidean-steps-container, .pascal-triangle-container {
+    background-color: #25282c; /* Darker emphasis background */
+    border: 1px solid var(--border-color-dark);
+  }
+}
+
+.sequence-element, .euclidean-step, .pascal-number {
+  display: inline-block; /* Allow spacing and prevent awkward line breaks */
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem;
+  background-color: var(--card-bg-light);
+  border: 1px solid var(--border-color-light);
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Courier New', monospace; /* Monospaced for numbers */
+  font-size: 1em;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.sequence-element:hover, .euclidean-step:hover, .pascal-number:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .sequence-element, .euclidean-step, .pascal-number {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--border-color-dark);
+  }
+   .sequence-element:hover, .euclidean-step:hover, .pascal-number:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+}
+
+.pascal-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Info Container Styling */
+.info-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #e9ecef; /* Different background for info */
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  font-size: 0.95em;
+  line-height: 1.7;
+}
+
+@media (prefers-color-scheme: dark) {
+  .info-container {
+    background-color: #343a40; /* Dark info background */
+    border: 1px solid #495057;
+    color: #ced4da;
+  }
+}
+
+/* Remove Vite default logo styles if they exist and are not needed */
+.logo, .logo.react, .card, .read-the-docs {
+  display: none; /* Or remove them if they are not used */
 }
 
 @keyframes logo-spin {
@@ -25,68 +205,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.container {
-  padding: 20px;
-  font-family: 'Courier New', Courier, monospace; /* Typewriter font */
-}
-
-.input-container {
-  margin-bottom: 20px;
-}
-
-.input-container label {
-  margin-right: 10px;
-}
-
-.input-container input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: 'Open Sans', sans-serif; /* Modern sans-serif for input */
-}
-
-.pascal-triangle-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: auto; /* Allows horizontal scrolling for large triangles */
-  padding: 10px;
-  border: 1px solid #ddd; /* Aged paper like border */
-  background-color: #fdfaf6; /* Aged paper background */
-  border-radius: 5px;
-  margin-top: 20px;
-}
-
-.pascal-row {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5px; /* Space between rows */
-  white-space: nowrap; /* Prevents numbers from wrapping within a row */
-}
-
-.pascal-number {
-  padding: 5px 10px;
-  margin: 0 5px; /* Space between numbers */
-  border: 1px solid #ddd; /* Subtle border for each number */
-  border-radius: 3px;
-  background-color: #fff;
-  min-width: 30px; /* Ensure numbers have some width */
-  text-align: center;
-  font-family: 'Courier New', Courier, monospace; /* Typewriter font for numbers */
 }
