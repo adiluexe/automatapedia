@@ -1,0 +1,135 @@
+/* General Styles for all Sequence Pages */
+.sequence-page-container {
+  padding: 2rem;
+  max-width: 900px; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+.sequence-page-header h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 3.158rem; /* h2 size from index.css */
+  color: var(--primary-color);
+}
+
+.card {
+  background-color: var(--background-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+  font-size: 2.369rem; /* h3 size */
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+.sequence-rules {
+  list-style-type: disc;
+  margin-left: 20px;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.sequence-rules li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.input-group input[type="number"] {
+  padding: 0.75rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  font-family: 'Syne', sans-serif;
+  color: var(--text-color);
+  background-color: #fff; /* Or a very light background */
+  width: 100px; /* Adjust as needed */
+  text-align: right;
+}
+
+.generate-button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Syne', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.generate-button:hover {
+  background-color: var(--accent-color);
+}
+
+.results-display h3 {
+  font-size: 1.777rem; /* h4 size */
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.results-display p {
+  margin-bottom: 1rem;
+}
+
+.visualization-placeholder {
+  border: 2px dashed var(--secondary-color);
+  padding: 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  background-color: var(--secondary-color-t, rgba(199, 173, 148, 0.1)); /* Transparent secondary */
+  border-radius: 4px;
+}
+
+.visualization-placeholder p {
+  color: var(--text-color);
+  font-style: italic;
+}
+
+.results-display h4 {
+  font-size: 1.333rem; /* h5 size */
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sequence-values {
+  background-color: var(--secondary-color-t, rgba(199, 173, 148, 0.05));
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--secondary-color);
+  word-break: break-all; /* Prevent overflow with long sequences */
+}
+
+.sequence-element {
+  display: inline-block;
+  padding: 0.25rem 0.1rem; /* Reduced padding slightly */
+  margin: 0.25rem 0;
+  color: var(--text-color);
+  font-family: 'Syne', sans-serif;
+}
+
+.error-message {
+  color: #d9534f; /* A common error red color */
+  margin-top: 0.5rem;
+}
+
+/* Specific to Collatz Page if needed, or keep general */
