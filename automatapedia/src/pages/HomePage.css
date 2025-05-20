@@ -10,7 +10,19 @@
 .homepage-header h1 {
   font-size: 3.5rem; /* Slightly smaller than default h1 for this specific use */
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */ /* Handled by marquee-container or can be added back if needed */
+  white-space: nowrap; /* Keep text on one line */
+  /* animation: marquee 15s linear infinite; */ /* Removed marquee animation */
+
+  /* New styles for typing animation */
+  display: inline-block; /* Important for width animation and centering via text-align */
+  overflow: hidden; /* Ensures text is revealed, not just scaled */
+  border-right: .15em solid var(--accent-color); /* Blinking cursor */
+  width: 0; /* Start with no width, text will appear */
+  animation:
+    typing 2s steps(13, end) forwards, /* "Automatapedia" has 13 characters */
+    blink-caret .75s step-end infinite;
+  letter-spacing: .01em; /* Optional: adjust spacing if needed */
 }
 
 .homepage-header p {
@@ -113,4 +125,88 @@
 
 .explore-button:hover {
   background-color: var(--accent-color);
+}
+
+/* New Keyframes for Typing Animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; } /* Animates to the natural width of the content "Automatapedia" */
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--accent-color, orange); } /* Fallback to orange if --accent-color is not defined */
+}
+
+/* Media Queries for HomePage Responsiveness */
+
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+  .homepage-container {
+    padding: 1.5rem;
+  }
+
+  .homepage-header h1 {
+    font-size: 2.8rem;
+  }
+
+  .homepage-header p {
+    font-size: 1rem;
+  }
+
+  .welcome-section {
+    padding: 1.5rem;
+  }
+
+  .sequences-grid {
+    grid-template-columns: 1fr; /* Stack cards on smaller screens */
+  }
+
+  .sequence-card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 480px) {
+  .homepage-container {
+    padding: 1rem;
+  }
+
+  .homepage-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .homepage-header p {
+    font-size: 0.9rem;
+  }
+
+  .welcome-section {
+    padding: 1rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .welcome-section p {
+    font-size: 0.9rem;
+  }
+
+  .explore-sequences-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .sequence-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .sequence-card p {
+    font-size: 0.85rem;
+  }
+
+  .explore-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

@@ -175,6 +175,69 @@
   line-height: 1.6;
 }
 
+/* Media Queries for Responsiveness */
+
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 1rem;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links li {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 0.5rem 0;
+    text-align: left;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 480px) {
+  .nav-logo .logo-automata {
+    font-size: 1.5rem; /* Smaller logo text */
+  }
+  .nav-logo .logo-pedia {
+    font-size: 1.2rem; /* Smaller logo text */
+  }
+
+  .main-content {
+    padding: 0.5rem;
+  }
+
+  .main-footer {
+    padding: 0.8rem;
+  }
+
+  .main-footer p {
+    font-size: 0.8rem;
+  }
+
+  .container h1 {
+    font-size: 1.8rem; /* Adjust heading sizes for sequence pages */
+  }
+
+  .input-container input[type="number"] {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Remove Vite default logo styles if they exist and are not needed */
 /*
 .logo, .logo.react, .card, .read-the-docs {

@@ -40,3 +40,37 @@ small {font-size: 0.750rem; /* 12px */}
 /*
 @import 'tailwindcss'; 
 */
+
+/* Media Queries for Global Font Size Adjustments */
+
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+  html {
+    font-size: 93.75%; /* 15px base for tablets */
+  }
+
+  h1 {font-size: 3.5rem;} /* Adjusted for 15px base */
+  h2 {font-size: 2.625rem;}
+  h3 {font-size: 2rem;}
+  h4 {font-size: 1.5rem;}
+  h5 {font-size: 1.125rem;}
+  small {font-size: 0.7rem;}
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 480px) {
+  html {
+    font-size: 87.5%; /* 14px base for mobile */
+  }
+
+  body {
+    line-height: 1.5;
+  }
+
+  h1 {font-size: 2.8rem;} /* Adjusted for 14px base */
+  h2 {font-size: 2.1rem;}
+  h3 {font-size: 1.6rem;}
+  h4 {font-size: 1.25rem;}
+  h5 {font-size: 1rem;}
+  small {font-size: 0.65rem;}
+}
