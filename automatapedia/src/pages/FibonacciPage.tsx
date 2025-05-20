@@ -34,8 +34,8 @@ const FibonacciPage: React.FC = () => {
     const first = parseInt(firstTermInput, 10);
     const second = parseInt(secondTermInput, 10);
 
-    if (isNaN(terms) || terms <= 0) {
-      setError("Number of terms must be a positive integer.");
+    if (isNaN(terms) || terms <= 2) {
+      setError("Number of terms must be an integer greater than 2.");
       setSequence([]);
       setShowSequence(false);
       return;

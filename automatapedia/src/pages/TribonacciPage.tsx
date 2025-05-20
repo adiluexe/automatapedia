@@ -37,8 +37,9 @@ const TribonacciPage: React.FC = () => {
     const val2 = parseInt(startVal2Input, 10);
     const val3 = parseInt(startVal3Input, 10);
 
-    if (isNaN(terms) || terms <= 0) {
-      setError("Number of terms must be a positive integer.");
+    if (isNaN(terms) || terms <= 3) {
+      // Changed from "terms <= 0"
+      setError("Number of terms must be an integer greater than 3.");
       setSequence([]);
       setShowSequence(false);
       return;

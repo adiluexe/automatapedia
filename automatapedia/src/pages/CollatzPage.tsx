@@ -28,6 +28,13 @@ const CollatzPage: React.FC = () => {
       setShowSequence(false);
       return;
     }
+    if (startNumber % 2 === 0) {
+      // Add check for odd number
+      setError("Please enter an odd starting number.");
+      setSequence([]);
+      setShowSequence(false);
+      return;
+    }
     if (startNumber > 1000000) {
       // Add a reasonable upper limit for performance
       setError(
