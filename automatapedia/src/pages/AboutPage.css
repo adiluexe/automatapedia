@@ -133,6 +133,7 @@
 
 .about-page-container .card .available-sequences-list li {
   margin-bottom: 0.75rem; /* Add some spacing between list items */
+  list-style-type: none; /* Remove list marker */
 }
 
 .about-page-container .card .available-sequences-list a {
@@ -143,12 +144,13 @@
   padding: 0.25rem 0.5rem;
   border-radius: var(--border-radius-small);
   transition: background-color 0.3s ease, color 0.3s ease;
+  
 }
 
 .about-page-container .card .available-sequences-list a:hover,
 .about-page-container .card .available-sequences-list a:focus {
-  background-color: var(--accent-color-1);
-  color: var(--background-color-light);
+  /* background-color: var(--accent-color); */
+  color: var(--primary-color);
   text-decoration: none;
   outline: none;
 }
@@ -162,13 +164,18 @@
     color: var(--primary-color);
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.3s ease;
+    list-style: none;
 }
 
 .about-page .available-sequences-list li a:hover {
     background-color: var(--accent-color);
-    color: var(--primary-color); /* White-ish background color for text */
+    color: var(--primary-color);
     text-decoration: none;
     border-color: var(--accent-color);
+}
+
+.about-page .available-sequences-list li {
+    list-style-type: none; /* Remove list marker */
 }
 
 .about-page .glossary-terms dt {
