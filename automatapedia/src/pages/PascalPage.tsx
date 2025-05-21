@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import html2canvas from "html2canvas"; // Import html2canvas
 import { generatePascalsTriangle } from "../sequences/pascal";
 import "./SequencePage.css"; // Common styles
 
@@ -47,38 +48,39 @@ const PascalPage: React.FC = () => {
     }
   };
 
-  const handleDownloadTriangle = () => {
+  // Replaces the previous handleDownloadTriangle function
+  const handleDownloadImage = () => {
+    if (!visualizationRef.current) {
+      setError("Visualization not available.");
+      return;
+    }
     if (!triangle || triangle.length === 0) {
       setError("Please generate a triangle first.");
       return;
     }
-    if (triangle.length === 0) return;
 
-    const triangleString = triangle.map((row) => row.join(" ")).join("\\n");
+    // Options for html2canvas. Removed 'scale' to avoid potential TS issues for now.
+    const options = {
+      background: "var(--background-color, white)", // Use background color from CSS variable
+      useCORS: true, // If you have external images/fonts
+      // If higher resolution is needed and 'scale' causes issues,
+      // consider adjusting width/height of the canvas element before capture,
+      // or check for updated @types/html2canvas or library version.
+    };
 
-    const blob = new Blob([triangleString], {
-      type: "text/plain;charset=utf-8;",
-    });
-    const link = document.createElement("a");
-
-    if (link.download !== undefined) {
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute(
-        "download",
-        `pascals_triangle_rows_0_to_${numRows}.txt`
-      );
-      link.style.visibility = "hidden";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } else {
-      // Fallback for older browsers
-      const url = URL.createObjectURL(blob);
-      window.open(url);
-      // Consider revoking the URL after a delay if appropriate for this fallback
-    }
+    html2canvas(visualizationRef.current, options)
+      .then((canvas) => {
+        const link = document.createElement("a");
+        link.download = `pascals_triangle_rows_0_to_${numRows}.png`;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link); // Append to body to ensure click works
+        link.click();
+        document.body.removeChild(link); // Clean up
+      })
+      .catch((err) => {
+        setError("Failed to download image: " + err.message);
+        console.error("Error downloading image: ", err);
+      });
   };
 
   useEffect(() => {
@@ -159,14 +161,14 @@ const PascalPage: React.FC = () => {
             >
               {" "}
               {/* Added flexShrink: 0 */}
-              <button onClick={toggleFullScreen} className="generate-button">
+              <button onClick={toggleFullScreen} className="button-style">
                 {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
               </button>
               <button
-                onClick={handleDownloadTriangle}
-                className="generate-button"
+                onClick={handleDownloadImage} // Use handleDownloadImage
+                className="button-style" // Apply button-style
               >
-                Download Triangle
+                Download as Image {/* Updated text */}
               </button>
             </div>
           </div>
