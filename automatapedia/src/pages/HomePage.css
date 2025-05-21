@@ -10,19 +10,20 @@
 .homepage-header h1 {
   font-size: 3.5rem; /* Slightly smaller than default h1 for this specific use */
   color: var(--primary-color);
-  /* margin-bottom: 0.5rem; */ /* Handled by marquee-container or can be added back if needed */
   white-space: nowrap; /* Keep text on one line */
-  /* animation: marquee 15s linear infinite; */ /* Removed marquee animation */
+  letter-spacing: .01em; /* Optional: adjust spacing if needed */
+  display: inline-block; /* Ensures h1 only takes width of its content */
+}
 
-  /* New styles for typing animation */
-  display: inline-block; /* Important for width animation and centering via text-align */
+.homepage-header h1 .typing-text {
+  display: inline-block; /* Important for width animation */
   overflow: hidden; /* Ensures text is revealed, not just scaled */
   border-right: .15em solid var(--accent-color); /* Blinking cursor */
   width: 0; /* Start with no width, text will appear */
   animation:
     typing 2s steps(13, end) forwards, /* "Automatapedia" has 13 characters */
     blink-caret .75s step-end infinite;
-  letter-spacing: .01em; /* Optional: adjust spacing if needed */
+  white-space: nowrap; /* Ensure the span itself doesn't wrap if h1 has space */
 }
 
 .homepage-header p {

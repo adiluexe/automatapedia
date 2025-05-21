@@ -67,7 +67,9 @@ const HomePage: React.FC = () => {
   return (
     <div className="homepage-container">
       <header className="homepage-header">
-        <h1>Automatapedia</h1>
+        <h1>
+          <span className="typing-text">Automatapedia</span>
+        </h1>
         <p>
           An interactive journey through mathematical sequences and automata
           theory
