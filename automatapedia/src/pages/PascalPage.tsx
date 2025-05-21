@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { generatePascalsTriangle } from "../sequences/pascal";
 import "./SequencePage.css"; // Common styles
 
@@ -9,6 +9,8 @@ const PascalPage: React.FC = () => {
   );
   const [showTriangle, setShowTriangle] = useState<boolean>(true); // Show by default
   const [error, setError] = useState<string>("");
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const visualizationRef = useRef<HTMLDivElement>(null);
 
   const handleGenerateTriangle = () => {
     if (numRows < 0) {
@@ -28,6 +30,33 @@ const PascalPage: React.FC = () => {
     setNumRows(isNaN(value) ? 0 : value);
     setShowTriangle(false); // Hide triangle when input changes
   };
+
+  const toggleFullScreen = () => {
+    if (!visualizationRef.current) return;
+
+    if (!document.fullscreenElement) {
+      visualizationRef.current.requestFullscreen().catch((err) => {
+        alert(
+          `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+        );
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
 
   return (
     <div className="sequence-page-container">
@@ -80,22 +109,61 @@ const PascalPage: React.FC = () => {
 
       {showTriangle && triangle.length > 0 && (
         <section className="results card">
-          <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
           <div
+            className="results-header"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2>Pascal\\'s Triangle (Rows 0 to {numRows})</h2>
+            <button onClick={toggleFullScreen} className="fullscreen-button">
+              {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
+            </button>
+          </div>
+          <div
+            ref={visualizationRef}
             className="visualization-placeholder pascal-triangle-visualization"
-            style={{ maxHeight: "500px", overflowY: "auto", overflowX: "auto" }}
+            style={{
+              maxHeight: isFullScreen ? "100vh" : "500px",
+              overflowY: "auto",
+              overflowX: "auto",
+              backgroundColor: isFullScreen
+                ? "var(--background-color, white)"
+                : "transparent",
+              padding: isFullScreen ? "20px" : "0",
+              boxSizing: "border-box",
+            }}
           >
             {triangle.map((row, rowIndex) => (
               <div
                 key={rowIndex}
                 className="pascal-row"
-                style={{ display: "flex", justifyContent: "center" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "5px", // Add some space between rows
+                }}
               >
                 {row.map((num, numIndex) => (
                   <span
                     key={numIndex}
                     className="pascal-number"
-                    style={{ padding: "5px 10px", whiteSpace: "nowrap" }}
+                    style={{
+                      padding: "5px 10px", // Adjusted padding for better spacing
+                      minWidth: "40px", // Minimum width for smaller numbers, allows for slightly larger numbers too
+                      textAlign: "center",
+                      border: "1px solid var(--text-color, #ccc)",
+                      borderRadius: "4px",
+                      margin: "2px",
+                      display: "inline-block", // Ensures proper block-like behavior for padding/sizing
+                      whiteSpace: "nowrap", // Prevents numbers from wrapping to the next line
+                      overflow: "hidden", // Hides part of the number if it's too large for the span
+                      textOverflow: "ellipsis", // Shows '...' if the number is too large
+                      backgroundColor: "var(--card-background-color, #f9f9f9)",
+                      // Removed flexGrow, flexShrink, flexBasis to let items size naturally
+                    }}
                   >
                     {num}
                   </span>
