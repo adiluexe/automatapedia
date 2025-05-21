@@ -50,7 +50,8 @@ const PascalPage: React.FC = () => {
 
   // Replaces the previous handleDownloadTriangle function
   const handleDownloadImage = () => {
-    if (!visualizationRef.current) {
+    const elementToCapture = visualizationRef.current;
+    if (!elementToCapture) {
       setError("Visualization not available.");
       return;
     }
@@ -59,27 +60,54 @@ const PascalPage: React.FC = () => {
       return;
     }
 
-    // Options for html2canvas. Removed 'scale' to avoid potential TS issues for now.
-    const options = {
-      background: "var(--background-color, white)", // Use background color from CSS variable
-      useCORS: true, // If you have external images/fonts
-      // If higher resolution is needed and 'scale' causes issues,
-      // consider adjusting width/height of the canvas element before capture,
-      // or check for updated @types/html2canvas or library version.
+    // Store original styles
+    const originalStyles = {
+      overflowY: elementToCapture.style.overflowY,
+      overflowX: elementToCapture.style.overflowX,
+      maxHeight: elementToCapture.style.maxHeight,
+      height: elementToCapture.style.height,
     };
 
-    html2canvas(visualizationRef.current, options)
+    const restoreStyles = () => {
+      elementToCapture.style.overflowY = originalStyles.overflowY;
+      elementToCapture.style.overflowX = originalStyles.overflowX;
+      elementToCapture.style.maxHeight = originalStyles.maxHeight;
+      elementToCapture.style.height = originalStyles.height;
+    };
+
+    // Apply temporary styles for full capture
+    elementToCapture.style.overflowY = "visible";
+    elementToCapture.style.overflowX = "visible";
+    elementToCapture.style.maxHeight = "none"; // Remove maxHeight constraint
+    elementToCapture.style.height = "auto"; // Allow height to fit content
+
+    const options = {
+      background:
+        getComputedStyle(elementToCapture).getPropertyValue(
+          "background-color"
+        ) || "white",
+      useCORS: true,
+      // Ensure the capture area starts at the top-left of the element
+      scrollX: -elementToCapture.scrollLeft,
+      scrollY: -elementToCapture.scrollTop,
+      windowWidth: elementToCapture.scrollWidth,
+      windowHeight: elementToCapture.scrollHeight,
+    };
+
+    html2canvas(elementToCapture, options)
       .then((canvas) => {
         const link = document.createElement("a");
         link.download = `pascals_triangle_rows_0_to_${numRows}.png`;
         link.href = canvas.toDataURL("image/png");
-        document.body.appendChild(link); // Append to body to ensure click works
+        document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link); // Clean up
+        document.body.removeChild(link);
+        restoreStyles(); // Restore styles after successful generation
       })
       .catch((err) => {
         setError("Failed to download image: " + err.message);
         console.error("Error downloading image: ", err);
+        restoreStyles(); // Restore styles even if an error occurs
       });
   };
 
