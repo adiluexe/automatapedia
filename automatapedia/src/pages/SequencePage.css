@@ -205,6 +205,56 @@
   margin-top: 0.5rem;
 }
 
+/* General Button Style for Sequence Pages (e.g., Fullscreen, Download) */
+.button-style {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-color);
+  color: var(--button-text-color, #ffffff); /* Default to white, can be overridden by theme */
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  font-family: 'Chivo', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  text-decoration: none; /* Remove underline if it's an <a> tag styled as button */
+  display: inline-flex; /* For aligning icon and text if an icon is added */
+  align-items: center;
+  justify-content: center;
+}
+
+.button-style:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--button-hover-text-color, #ffffff);
+}
+
+.button-style:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Specific style for a secondary or alternative button if needed */
+.button-style-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--text-color); /* Text color that contrasts with secondary */
+}
+
+.button-style-secondary:hover {
+  background-color: var(--secondary-color-darker, #a09383); /* Define a darker secondary or use accent */
+  border-color: var(--secondary-color-darker, #a09383);
+  color: var(--background-color); /* Text color for hover state */
+}
+
+/* Styles for the fullscreen visualization container */
+.fullscreen-visualization-header {
+  display: flex;
+  justify-content: flex-end; /* Aligns button to the right */
+  padding: 10px;
+  background-color: var(--background-color); /* Match theme */
+  border-bottom: 1px solid var(--secondary-color);
+}
+
 /* Specific to Collatz Page if needed, or keep general */
 
 /* Specific grid for Tribonacci to handle more inputs if needed */

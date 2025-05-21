@@ -150,8 +150,8 @@ const PascalPage: React.FC = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              flexWrap: "wrap", // Allow wrapping for smaller screens
-              gap: "1rem", // Add gap for spacing when wrapped
+              flexWrap: "wrap",
+              gap: "1rem",
             }}
           >
             <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
@@ -159,17 +159,10 @@ const PascalPage: React.FC = () => {
               className="action-buttons"
               style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}
             >
-              {" "}
-              {/* Added flexShrink: 0 */}
               <button onClick={toggleFullScreen} className="button-style">
                 {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
               </button>
-              <button
-                onClick={handleDownloadImage} // Use handleDownloadImage
-                className="button-style" // Apply button-style
-              >
-                Download as Image {/* Updated text */}
-              </button>
+              {/* Download button is now conditionally rendered inside the fullscreen view */}
             </div>
           </div>
           <div
@@ -182,10 +175,26 @@ const PascalPage: React.FC = () => {
               backgroundColor: isFullScreen
                 ? "var(--background-color, white)"
                 : "transparent",
-              padding: isFullScreen ? "20px" : "0",
+              padding: isFullScreen ? "0" : "0", // Padding will be handled by inner content or specific fullscreen styles
               boxSizing: "border-box",
+              display: isFullScreen ? "flex" : "block", // Use flex for fullscreen to manage header and content
+              flexDirection: isFullScreen ? "column" : "initial", // Stack header and content vertically in fullscreen
             }}
           >
+            {isFullScreen && (
+              <div className="fullscreen-visualization-header">
+                <button
+                  onClick={handleDownloadImage}
+                  className="button-style"
+                  style={{ marginRight: "auto" }}
+                >
+                  Download as Image
+                </button>
+                <button onClick={toggleFullScreen} className="button-style">
+                  Back
+                </button>
+              </div>
+            )}
             {triangle.map((row, rowIndex) => (
               <div
                 key={rowIndex}
