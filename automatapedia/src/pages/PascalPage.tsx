@@ -117,7 +117,7 @@ const PascalPage: React.FC = () => {
               alignItems: "center",
             }}
           >
-            <h2>Pascal\\'s Triangle (Rows 0 to {numRows})</h2>
+            <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
             <button onClick={toggleFullScreen} className="fullscreen-button">
               {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
             </button>

@@ -56,7 +56,7 @@
 .nav-links li a {
   text-decoration: none;
   color: var(--text-color);
-  font-family: 'Syne', sans-serif;
+  font-family: 'Chivo', sans-serif; /* Changed font */
   font-size: 1.1rem; /* Increased font size for nav links */
 }
 
