@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import html2canvas from "html2canvas"; // Import html2canvas
 import { generatePascalsTriangle } from "../sequences/pascal";
 import "./SequencePage.css"; // Common styles
