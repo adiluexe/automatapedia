@@ -8,9 +8,9 @@ const PascalPage: React.FC = () => {
     generatePascalsTriangle(5) // Initialize with default (generates rows 0 through 5)
   );
   const [showTriangle, setShowTriangle] = useState<boolean>(true); // Show by default
-  const [error, setError] = useState<string>("");
+  const [error, setError] = React.useState<string | null>(null);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-  const visualizationRef = useRef<HTMLDivElement>(null);
+  const visualizationRef = React.useRef<HTMLDivElement>(null);
 
   const handleGenerateTriangle = () => {
     if (numRows < 0) {
@@ -25,8 +25,8 @@ const PascalPage: React.FC = () => {
     setShowTriangle(true);
   };
 
-  const handleNumRowsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
+  const handleNumRowsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
     setNumRows(isNaN(value) ? 0 : value);
     setShowTriangle(false); // Hide triangle when input changes
   };
@@ -44,6 +44,40 @@ const PascalPage: React.FC = () => {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
+    }
+  };
+
+  const handleDownloadTriangle = () => {
+    if (!triangle || triangle.length === 0) {
+      setError("Please generate a triangle first.");
+      return;
+    }
+    if (triangle.length === 0) return;
+
+    const triangleString = triangle.map((row) => row.join(" ")).join("\\n");
+
+    const blob = new Blob([triangleString], {
+      type: "text/plain;charset=utf-8;",
+    });
+    const link = document.createElement("a");
+
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute(
+        "download",
+        `pascals_triangle_rows_0_to_${numRows}.txt`
+      );
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      // Fallback for older browsers
+      const url = URL.createObjectURL(blob);
+      window.open(url);
+      // Consider revoking the URL after a delay if appropriate for this fallback
     }
   };
 
@@ -98,7 +132,6 @@ const PascalPage: React.FC = () => {
             value={numRows}
             onChange={handleNumRowsChange}
             min="0"
-            // Removed max="20"
           />
           <button onClick={handleGenerateTriangle} className="generate-button">
             Generate
@@ -115,12 +148,27 @@ const PascalPage: React.FC = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              flexWrap: "wrap", // Allow wrapping for smaller screens
+              gap: "1rem", // Add gap for spacing when wrapped
             }}
           >
             <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
-            <button onClick={toggleFullScreen} className="fullscreen-button">
-              {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
-            </button>
+            <div
+              className="action-buttons"
+              style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}
+            >
+              {" "}
+              {/* Added flexShrink: 0 */}
+              <button onClick={toggleFullScreen} className="generate-button">
+                {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
+              </button>
+              <button
+                onClick={handleDownloadTriangle}
+                className="generate-button"
+              >
+                Download Triangle
+              </button>
+            </div>
           </div>
           <div
             ref={visualizationRef}
