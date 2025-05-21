@@ -9,8 +9,26 @@ import LucasPage from "./pages/LucasPage";
 import EuclideanPage from "./pages/EuclideanPage";
 import PascalPage from "./pages/PascalPage";
 import AboutPage from "./pages/AboutPage"; // Import the AboutPage component
+import { useState, useEffect } from "react"; // Import useState and useEffect
 
 const App: React.FC = () => {
+  const [theme, setTheme] = useState(() => {
+    // Get saved theme from localStorage or default to 'light'
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme : "light";
+  });
+
+  useEffect(() => {
+    // Apply the theme to the root element
+    document.documentElement.setAttribute("data-theme", theme);
+    // Save the theme to localStorage
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -56,6 +74,17 @@ const App: React.FC = () => {
               </li>{" "}
               {/* Assuming an About page will be created */}
             </ul>
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle-button"
+              aria-label={
+                theme === "light"
+                  ? "Switch to dark mode"
+                  : "Switch to light mode"
+              }
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
           </div>
         </nav>
         <main className="main-content">

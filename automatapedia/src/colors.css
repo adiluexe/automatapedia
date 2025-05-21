@@ -8,3 +8,56 @@
   --background-color-light: #fdfdfc; /* A slightly lighter background for cards or inputs if needed */
   --secondary-color-t: rgba(194, 183, 168, 0.1); /* Transparent version of secondary for subtle backgrounds */
 }
+
+/* Define theme-specific values using -val suffix */
+:root[data-theme="light"] {
+  --text-val: #141210;
+  --background-val: #fafaf9;
+  --primary-val: #998975;
+  --secondary-val: #c2b7a8;
+  --accent-val: #af9d88;
+
+  --input-background-val: #fff; /* Light mode input background */
+  --input-text-val: #141210; /* Light mode input text */
+  --input-border-val: var(--secondary-val); /* Light mode input border */
+
+  --background-color-light-val: #fdfdfc;
+  --secondary-color-t-val: rgba(194, 183, 168, 0.1); /* 10% opacity of light secondary (#c2b7a8) */
+}
+
+:root[data-theme="dark"] {
+  --text-val: #efedeb;
+  --background-val: #060605;
+  --primary-val: #8a7a66;
+  --secondary-val: #574c3d; /* Dark secondary */
+  --accent-val: #776550;
+
+  --input-background-val: #1a1a18; /* Dark mode input background */
+  --input-text-val: #efedeb; /* Dark mode input text */
+  --input-border-val: var(--secondary-val); /* Dark mode input border */
+
+  --background-color-light-val: #1a1a18; /* A slightly lighter dark shade for cards/inputs */
+  /* For --secondary-color-t-val in dark mode, use the dark secondary color #574c3d (RGB: 87, 76, 61) */
+  --secondary-color-t-val: rgba(87, 76, 61, 0.1); /* 10% opacity of dark secondary */
+}
+
+/* Generic variables that components will use.
+   These will pick up the -val variables based on the active data-theme.
+   Fallback values are for when data-theme is not yet set or in case of issues. */
+:root {
+  --text-color: var(--text-val, #141210);
+  --background-color: var(--background-val, #fafaf9);
+  --primary-color: var(--primary-val, #998975);
+  --secondary-color: var(--secondary-val, #c2b7a8);
+  --accent-color: var(--accent-val, #af9d88);
+
+  --input-background: var(--input-background-val, #fff);
+  --input-text-color: var(--input-text-val, #141210);
+  --input-border-color: var(--input-border-val, #c2b7a8);
+
+  /* This will correctly use the themed secondary-color because --secondary-color itself is themed */
+  --border-color: var(--secondary-color);
+
+  --background-color-light: var(--background-color-light-val, #fdfdfc);
+  --secondary-color-t: var(--secondary-color-t-val, rgba(194, 183, 168, 0.1));
+}

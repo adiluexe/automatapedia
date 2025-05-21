@@ -56,11 +56,11 @@
 
 .input-group input[type="number"] {
   padding: 0.75rem;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   font-family: 'Chivo', sans-serif; /* Updated font */
-  color: var(--text-color);
-  background-color: #fff; /* Or a very light background */
+  color: var(--input-text-color);
+  background-color: var(--input-background); /* Or a very light background */
   width: 100px; /* Adjust as needed */
   text-align: right;
 }
@@ -82,12 +82,12 @@
 
 .input-grid input[type="number"] {
   padding: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   font-family: var(--font-body);
   font-size: 1rem;
-  background-color: var(--background-color-light);
-  color: var(--text-color);
+  background-color: var(--input-background);
+  color: var(--input-text-color);
   width: 100%; /* Make input take full width of its grid cell */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
