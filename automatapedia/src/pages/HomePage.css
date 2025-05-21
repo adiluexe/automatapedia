@@ -82,7 +82,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Helps align button at the bottom */
+  min-height: 450px; /* Or a suitable value to accommodate the tallest card content */
 }
 
 .sequence-card:hover {
@@ -94,6 +94,7 @@
   font-size: 1.75rem; /* Adjust as needed */
   color: var(--primary-color);
   margin-bottom: 1rem;
+  min-height: 3.5rem; /* Approx 2 lines of text, adjust as needed */
 }
 
 .visualization-area {
@@ -126,6 +127,7 @@
   color: var(--text-color);
   margin-bottom: 1.5rem;
   line-height: 1.5;
+  flex-grow: 1; /* Allows the paragraph to take up available space */
 }
 
 .explore-button {
@@ -137,7 +139,7 @@
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  margin-top: auto; /* Pushes button to the bottom if card content is short */
+  margin-top: auto; /* Pushes button to the bottom */
 }
 
 .explore-button:hover {
