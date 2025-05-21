@@ -16,14 +16,8 @@ const PascalPage: React.FC = () => {
       setTriangle([]);
       setShowTriangle(false);
       return;
-    } else if (numRows > 20) {
-      setError(
-        "Please enter a number of rows less than or equal to 20 for optimal display."
-      );
-      setTriangle([]);
-      setShowTriangle(false);
-      return;
     }
+    // Removed the upper limit check (numRows > 20)
     setError("");
     setTriangle(generatePascalsTriangle(numRows)); // numRows is directly the highestRowIndex
     setShowTriangle(true);
@@ -75,7 +69,7 @@ const PascalPage: React.FC = () => {
             value={numRows}
             onChange={handleNumRowsChange}
             min="0"
-            max="20"
+            // Removed max="20"
           />
           <button onClick={handleGenerateTriangle} className="generate-button">
             Generate
@@ -87,11 +81,22 @@ const PascalPage: React.FC = () => {
       {showTriangle && triangle.length > 0 && (
         <section className="results card">
           <h2>Pascal's Triangle (Rows 0 to {numRows})</h2>
-          <div className="visualization-placeholder pascal-triangle-visualization">
+          <div
+            className="visualization-placeholder pascal-triangle-visualization"
+            style={{ maxHeight: "500px", overflowY: "auto", overflowX: "auto" }}
+          >
             {triangle.map((row, rowIndex) => (
-              <div key={rowIndex} className="pascal-row">
+              <div
+                key={rowIndex}
+                className="pascal-row"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 {row.map((num, numIndex) => (
-                  <span key={numIndex} className="pascal-number">
+                  <span
+                    key={numIndex}
+                    className="pascal-number"
+                    style={{ padding: "5px 10px", whiteSpace: "nowrap" }}
+                  >
                     {num}
                   </span>
                 ))}
