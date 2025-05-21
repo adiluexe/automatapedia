@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; // Added Link
 import { motion } from "framer-motion";
+import { Sun, Moon } from "@solar-icons/react"; // Import Sun and Moon icons
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import CollatzPage from "./pages/CollatzPage";
@@ -83,7 +84,11 @@ const App: React.FC = () => {
                   : "Switch to light mode"
               }
             >
-              {theme === "light" ? "🌙" : "☀️"}
+              {theme === "light" ? (
+                <Moon size={24} weight="Bold" />
+              ) : (
+                <Sun size={24} weight="Bold" />
+              )}
             </button>
           </div>
         </nav>
