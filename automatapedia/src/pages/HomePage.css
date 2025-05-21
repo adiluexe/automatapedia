@@ -80,6 +80,9 @@
   text-align: left; /* Content within card is left-aligned */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Helps align button at the bottom */
 }
 
 .sequence-card:hover {
@@ -104,6 +107,18 @@
   justify-content: center;
   border: 1px solid var(--secondary-color);
   color: var(--accent-color);
+  display: flex; /* Enable flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 150px; /* Or any desired fixed height */
+  overflow: hidden; /* Hide parts of image that overflow */
+  margin-bottom: 1rem; /* Add some space below the image */
+}
+
+.sequence-image {
+  width: 100%; /* Changed from max-width */
+  height: 100%; /* Changed from max-height */
+  object-fit: cover;
 }
 
 .sequence-card p {
@@ -122,6 +137,7 @@
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  margin-top: auto; /* Pushes button to the bottom if card content is short */
 }
 
 .explore-button:hover {
