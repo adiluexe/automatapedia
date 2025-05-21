@@ -241,14 +241,15 @@ const PascalPage: React.FC = () => {
                       padding: "5px 10px", // Adjusted padding for better spacing
                       minWidth: "40px", // Minimum width for smaller numbers, allows for slightly larger numbers too
                       textAlign: "center",
-                      border: "1px solid var(--text-color, #ccc)",
+                      border: "1px solid var(--text-color)", // Use CSS variable for border
                       borderRadius: "4px",
                       margin: "2px",
                       display: "inline-block", // Ensures proper block-like behavior for padding/sizing
                       whiteSpace: "nowrap", // Prevents numbers from wrapping to the next line
                       overflow: "hidden", // Hides part of the number if it's too large for the span
                       textOverflow: "ellipsis", // Shows '...' if the number is too large
-                      backgroundColor: "var(--card-background-color, #f9f9f9)",
+                      backgroundColor: "var(--card-background-color)", // Use CSS variable for background
+                      color: "var(--text-color)", // Use CSS variable for text color
                       // Removed flexGrow, flexShrink, flexBasis to let items size naturally
                     }}
                   >
