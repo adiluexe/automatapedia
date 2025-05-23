@@ -11,6 +11,7 @@
 
 .nav-content {
   display: flex;
+  justify-content: space-between; /* Added this */
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
@@ -62,7 +63,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem; /* Add some space between buttons */
-  margin-left: auto; /* This will push the actions to the far right */
+  /* margin-left: auto; Removed this */
 }
 
 .theme-toggle-button,
@@ -89,8 +90,8 @@
   top: 100%; /* Position below the navbar, covers main-nav's bottom padding */
   left: 0;
   right: 0;
-  background-color: var(--background-color); /* Changed from --card-background-color */
-  padding: 1rem 0; /* Padding top and bottom, side padding will be on links */
+  background-color: var(--background-color);
+  padding: 0 0 1rem; /* Removed top padding, kept bottom padding of 1rem, horizontal padding is 0 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slightly more pronounced shadow */
   z-index: 1050; /* Below toggle, above main content */
   border-top: 1px solid var(--border-color);
