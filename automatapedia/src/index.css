@@ -193,6 +193,14 @@ small {font-size: 0.750rem; /* 12px */}
   border-bottom: none;
 }
 
+/* Ensure main content is not obscured by the sticky header */
+.main-content {
+  padding-top: 4rem; /* Adjust this value based on the actual height of your sticky .main-nav */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem; /* Example padding */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .desktop-nav-links {

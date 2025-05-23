@@ -1,138 +1,151 @@
 /* Styles for NavigationBar.tsx */
 .main-nav {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 0.75rem 1rem; /* Adjusted padding for mobile-first approach */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%; /* Ensure it takes full width for space-between to work well */
+}
+
+.nav-logo {
+  font-size: 1.3rem; /* Mobile first logo size */
+  font-weight: bold;
+  text-decoration: none;
+  z-index: 1100; /* Ensure logo is clickable if menu is open and overlaps slightly */
+}
+
+.logo-automata {
+  color: var(--primary-color);
+}
+
+.logo-pedia {
+  color: var(--secondary-color);
+}
+
+/* Desktop Nav Links - Hidden by default, shown on larger screens */
+.nav-links.desktop-nav-links {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.nav-links.desktop-nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links.desktop-nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links.desktop-nav-links a:hover,
+.nav-links.desktop-nav-links a.active-link {
+  color: var(--accent-color);
+}
+/* End Desktop Nav Links */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Add some space between buttons */
+  margin-left: auto; /* This will push the actions to the far right */
+}
+
+.theme-toggle-button,
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-toggle {
+  z-index: 1100; /* Ensure toggle is above the slide-out menu */
+}
+
+/* Mobile Nav Links - Shown via JS by adding .mobile-open */
+.nav-links.mobile-nav-links {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  position: absolute;
+  top: 100%; /* Position below the navbar, covers main-nav's bottom padding */
+  left: 0;
+  right: 0;
+  background-color: var(--background-color); /* Changed from --card-background-color */
+  padding: 1rem 0; /* Padding top and bottom, side padding will be on links */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slightly more pronounced shadow */
+  z-index: 1050; /* Below toggle, above main content */
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  max-height: calc(100vh - 60px); /* Adjust 60px to match your navbar height */
+  overflow-y: auto; /* Allow scrolling if many links */
+}
+
+.nav-links.mobile-nav-links.mobile-open {
+  display: flex;
+}
+
+.nav-links.mobile-nav-links li {
+  margin: 0;
+  width: 100%;
+}
+
+.nav-links.mobile-nav-links a {
+  display: block;
+  padding: 0.9rem 1.5rem; /* Increased padding for better touch targets and spacing */
+  text-align: left; /* Align text to the left */
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color-soft);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+
+.nav-links.mobile-nav-links a:hover,
+.nav-links.mobile-nav-links a:focus {
+  background-color: var(--hover-background-color);
+  color: var(--accent-color);
+}
+
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 769px) { /* Breakpoint where desktop nav appears */
+  .main-nav {
+    padding: 1rem 2rem; /* Restore original padding for desktop */
   }
-  
-  .nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
+
   .nav-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
+    font-size: 1.5rem; /* Restore original logo size */
   }
   
-  .logo-automata {
-    color: var(--primary-color);
+  .nav-links.desktop-nav-links {
+    display: flex; /* Show desktop links */
   }
-  
-  .logo-pedia {
-    color: var(--secondary-color);
-  }
-  
-  .nav-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-links li {
-    margin-left: 20px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover,
-  .nav-links a.active-link { 
-    color: var(--accent-color);
-  }
-  
-  .nav-actions {
-    display: flex;
-    align-items: center;
-  }
-  
-  .theme-toggle-button {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-left: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+
   .mobile-menu-toggle {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 0.5rem;
-    display: none; /* Hidden by default */
-    z-index: 1100;
+    display: none; /* Hide hamburger icon on desktop */
   }
-  
-  .mobile-nav-links {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    position: absolute;
-    top: 100%; 
-    left: 0;
-    right: 0;
-    background-color: var(--background-color);
-    padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1050;
-    border-top: 1px solid var(--border-color);
+
+  .nav-links.mobile-nav-links {
+    display: none !important; /* Ensure mobile menu is hidden on desktop, even if state is open */
   }
-  
-  .mobile-nav-links.mobile-open {
-    display: flex;
-  }
-  
-  .mobile-nav-links li {
-    margin: 0;
-    width: 100%;
-  }
-  
-  .mobile-nav-links a {
-    display: block;
-    padding: 0.75rem 2rem;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color-soft);
-  }
-  
-  .mobile-nav-links li:last-child a {
-    border-bottom: none;
-  }
-  
-  /* Responsive adjustments from index.css, now specific to NavigationBar */
-  @media (max-width: 768px) {
-    .desktop-nav-links {
-      display: none;
-    }
-  
-    .mobile-menu-toggle {
-      display: flex; 
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .main-nav {
-      padding: 0.75rem 1rem;
-    }
-  
-    .nav-logo {
-      font-size: 1.3rem;
-    }
-  }
+}
