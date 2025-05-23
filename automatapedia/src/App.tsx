@@ -1,6 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; // Added Link
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  // Link and useLocation are now used in NavigationBar.tsx
+} from "react-router-dom"; // Import BrowserRouter
 import { motion } from "framer-motion";
-import { Sun, Moon } from "@solar-icons/react"; // Import Sun and Moon icons
+// Sun, Moon, List, CloseSquare are now used in NavigationBar.tsx
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import CollatzPage from "./pages/CollatzPage";
@@ -9,20 +14,31 @@ import TribonacciPage from "./pages/TribonacciPage";
 import LucasPage from "./pages/LucasPage";
 import EuclideanPage from "./pages/EuclideanPage";
 import PascalPage from "./pages/PascalPage";
-import AboutPage from "./pages/AboutPage"; // Import the AboutPage component
-import { useState, useEffect } from "react"; // Import useState and useEffect
+import AboutPage from "./pages/AboutPage";
+import { useState, useEffect } from "react";
+import NavigationBar from "./components/NavigationBar"; // Import the new component
 
-const App: React.FC = () => {
+const navLinkItems = [
+  { path: "/", label: "Home" },
+  { path: "/collatz", label: "Collatz" },
+  { path: "/fibonacci", label: "Fibonacci" },
+  { path: "/tribonacci", label: "Tribonacci" },
+  { path: "/lucas", label: "Lucas" },
+  { path: "/euclidean", label: "Euclidean" },
+  { path: "/pascal", label: "Pascal" },
+  { path: "/about", label: "About" },
+];
+
+const AppLayout: React.FC = () => {
   const [theme, setTheme] = useState(() => {
-    // Get saved theme from localStorage or default to 'light'
     const savedTheme = localStorage.getItem("theme");
     return savedTheme ? savedTheme : "light";
   });
 
+  // isMobileMenuOpen and location logic is now in NavigationBar.tsx
+
   useEffect(() => {
-    // Apply the theme to the root element
     document.documentElement.setAttribute("data-theme", theme);
-    // Save the theme to localStorage
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -30,153 +46,46 @@ const App: React.FC = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  // toggleMobileMenu and handleMobileLinkClick are now in NavigationBar.tsx
+
   return (
-    <Router>
-      <div className="app-container">
-        {" "}
-        {/* Replaced Tailwind classes with a general one */}
-        <nav className="main-nav">
-          {" "}
-          {/* Replaced Tailwind classes with a general one */}
-          <div className="nav-content">
-            {" "}
-            {/* Replaced Tailwind classes with a general one */}
-            <Link to="/" className="nav-logo">
-              <span className="logo-automata">Automata</span>
-              <span className="logo-pedia">pedia</span>
-            </Link>{" "}
-            {/* Added Link and class*/}
-            <ul className="nav-links">
-              {" "}
-              {/* Added class*/}
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/collatz">Collatz</Link>
-              </li>
-              <li>
-                <Link to="/fibonacci">Fibonacci</Link>
-              </li>
-              <li>
-                <Link to="/tribonacci">Tribonacci</Link>
-              </li>
-              <li>
-                <Link to="/lucas">Lucas</Link>
-              </li>
-              <li>
-                <Link to="/euclidean">Euclidean</Link>
-              </li>
-              <li>
-                <Link to="/pascal">Pascal</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>{" "}
-              {/* Assuming an About page will be created */}
-            </ul>
-            <button
-              onClick={toggleTheme}
-              className="theme-toggle-button"
-              aria-label={
-                theme === "light"
-                  ? "Switch to dark mode"
-                  : "Switch to light mode"
-              }
-            >
-              {theme === "light" ? (
-                <Moon size={24} weight="Bold" />
-              ) : (
-                <Sun size={24} weight="Bold" />
-              )}
-            </button>
-          </div>
-        </nav>
-        <main className="main-content">
-          {" "}
-          {/* Replaced Tailwind classes with a general one */}
-          <Routes>
+    <div className="app-container">
+      <NavigationBar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navLinkItems={navLinkItems}
+      />
+      <main className="main-content">
+        <Routes>
+          {navLinkItems.map((item) => (
             <Route
-              path="/"
+              key={item.path}
+              path={item.path}
               element={
                 <AnimatedPage>
-                  <HomePage />
+                  {/* This dynamic rendering of components can be simplified if preferred */}
+                  {item.path === "/" && <HomePage />}
+                  {item.path === "/collatz" && <CollatzPage />}
+                  {item.path === "/fibonacci" && <FibonacciPage />}
+                  {item.path === "/tribonacci" && <TribonacciPage />}
+                  {item.path === "/lucas" && <LucasPage />}
+                  {item.path === "/euclidean" && <EuclideanPage />}
+                  {item.path === "/pascal" && <PascalPage />}
+                  {item.path === "/about" && <AboutPage />}
                 </AnimatedPage>
               }
             />
-            <Route
-              path="/collatz"
-              element={
-                <AnimatedPage>
-                  <CollatzPage />
-                </AnimatedPage>
-              }
-            />
-            <Route
-              path="/fibonacci"
-              element={
-                <AnimatedPage>
-                  <FibonacciPage />
-                </AnimatedPage>
-              }
-            />
-            <Route
-              path="/tribonacci"
-              element={
-                <AnimatedPage>
-                  <TribonacciPage />
-                </AnimatedPage>
-              }
-            />{" "}
-            {/* Added route */}
-            <Route
-              path="/lucas"
-              element={
-                <AnimatedPage>
-                  <LucasPage />
-                </AnimatedPage>
-              }
-            />{" "}
-            {/* Added route */}
-            <Route
-              path="/euclidean"
-              element={
-                <AnimatedPage>
-                  <EuclideanPage />
-                </AnimatedPage>
-              }
-            />{" "}
-            {/* Added route */}
-            <Route
-              path="/pascal"
-              element={
-                <AnimatedPage>
-                  <PascalPage />
-                </AnimatedPage>
-              }
-            />
-            <Route
-              path="/about"
-              element={
-                <AnimatedPage>
-                  <AboutPage />
-                </AnimatedPage>
-              }
-            />{" "}
-            {/* Add routes for other pages here */}
-          </Routes>
-        </main>
-        <footer className="main-footer">
-          {" "}
-          {/* Replaced Tailwind classes with a general one */}
-          <p>© 2025 Automatapedia</p>
-          <p>
-            An interactive journey through mathematical sequences & automata
-            theory
-          </p>
-        </footer>
-      </div>
-    </Router>
+          ))}
+        </Routes>
+      </main>
+      <footer className="main-footer">
+        <p>© 2025 Automatapedia</p>
+        <p>
+          An interactive journey through mathematical sequences & automata
+          theory
+        </p>
+      </footer>
+    </div>
   );
 };
 
@@ -193,5 +102,13 @@ const AnimatedPage: React.FC<{ children: React.ReactNode }> = ({
     {children}
   </motion.div>
 );
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <AppLayout />
+    </BrowserRouter>
+  );
+};
 
 export default App;

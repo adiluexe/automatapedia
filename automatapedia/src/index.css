@@ -75,18 +75,143 @@ small {font-size: 0.750rem; /* 12px */}
   small {font-size: 0.65rem;}
 }
 
-/* Theme toggle button styles */
+/* Navbar styles */
+.main-nav {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure nav is above other content */
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; /* Or your preferred max-width */
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-size: 1.5rem; /* Increased size */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo-automata {
+  color: var(--primary-color); /* Use theme color */
+}
+
+.logo-pedia {
+  color: var(--secondary-color); /* Use theme color */
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500; /* Slightly bolder */
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active-link { /* Add class for active link if needed */
+  color: var(--accent-color);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
 .theme-toggle-button {
   background: none;
   border: none;
+  color: var(--text-color);
   cursor: pointer;
-  padding: 0;
-  color: var(--text-color); /* Adapts to theme */
+  padding: 0.5rem;
+  margin-left: 15px; /* Space from nav links or mobile toggle */
+  display: flex; /* Align icon properly */
+  align-items: center; /* Align icon properly */
+  justify-content: center; /* Align icon properly */
 }
 
-.theme-toggle-button:hover,
-.theme-toggle-button:focus {
-  outline: none; /* Remove default focus outline */
-  /* Optional: Add a subtle hover effect if desired */
-  /* color: var(--primary-color); */
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: none !important; /* Hidden by default (added !important) */
+  z-index: 1100; /* Above mobile nav links */
 }
+
+.mobile-nav-links {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  position: absolute;
+  top: 100%; /* Position below the navbar */
+  left: 0;
+  right: 0;
+  background-color: var(--background-color);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1050; /* Below toggle, above main content */
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-nav-links.mobile-open {
+  display: flex;
+}
+
+.mobile-nav-links li {
+  margin: 0;
+  width: 100%;
+}
+
+.mobile-nav-links a {
+  display: block;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color-soft);
+}
+
+.mobile-nav-links li:last-child a {
+  border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .desktop-nav-links {
+    display: none !important; /* Hide desktop links on mobile (added !important) */
+  }
+
+  .mobile-menu-toggle {
+    display: flex !important; /* Show hamburger icon (added !important) */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-nav {
+    padding: 0.75rem 1rem; /* Smaller padding on mobile */
+  }
+
+  .nav-logo {
+    font-size: 1.3rem; /* Slightly smaller logo on mobile */
+  }
+}
+
+/* ...rest of your existing styles... */
