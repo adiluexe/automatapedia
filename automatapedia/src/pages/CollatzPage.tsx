@@ -146,14 +146,12 @@ const CollatzPage: React.FC = () => {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
-
-          <h4>Sequence Values:</h4>
+          </div>          <h4>Sequence Values:</h4>
           <div className="sequence-values">
             {sequence.map((num, index) => (
               <span key={index} className="sequence-element">
                 {num}
-                {index < sequence.length - 1 ? " – " : ""}
+                {index < sequence.length - 1 ? " → " : ""}
               </span>
             ))}
           </div>
