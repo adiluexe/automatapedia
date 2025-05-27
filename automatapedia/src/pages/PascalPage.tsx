@@ -241,15 +241,15 @@ const PascalPage: React.FC = () => {
                       className="pascal-number"
                       style={{
                         padding: "5px 10px", // Adjusted padding for better spacing
-                        minWidth: "40px", // Minimum width for smaller numbers, allows for slightly larger numbers too
+                        minWidth: isFullScreen ? "auto" : "40px", // Allow natural width in fullscreen
                         textAlign: "center",
                         border: "1px solid var(--text-color)", // Use CSS variable for border
                         borderRadius: "4px",
                         margin: "2px",
                         display: "inline-block", // Ensures proper block-like behavior for padding/sizing
                         whiteSpace: "nowrap", // Prevents numbers from wrapping to the next line
-                        overflow: "hidden", // Hides part of the number if it's too large for the span
-                        textOverflow: "ellipsis", // Shows '...' if the number is too large
+                        overflow: isFullScreen ? "clip" : "hidden", // Use clip in fullscreen, hidden otherwise
+                        textOverflow: isFullScreen ? "clip" : "ellipsis", // Don't use ellipsis in fullscreen
                         backgroundColor: "var(--card-background-color)", // Use CSS variable for background
                         color: "var(--text-color)", // Use CSS variable for text color
                         // Removed flexGrow, flexShrink, flexBasis to let items size naturally
