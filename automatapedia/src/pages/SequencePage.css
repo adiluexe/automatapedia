@@ -145,6 +145,7 @@
   border: 1px solid var(--secondary-color);
   overflow-x: auto; /* Add horizontal scrolling */
   overflow-y: hidden; /* Prevent vertical scrolling */
+  white-space: nowrap; /* Prevent line wrapping for inline elements */
 }
 
 .sequence-list {
@@ -175,6 +176,7 @@
   display: inline-block;
   margin: 0; /* Remove margins since we're using flex gap */
   flex-shrink: 0; /* Prevent elements from shrinking */
+  white-space: nowrap; /* Prevent individual elements from wrapping */
 }
 
 .euclidean-steps-display {
