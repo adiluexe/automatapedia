@@ -21,8 +21,11 @@ const LucasPage: React.FC = () => {
 
   const handleGenerateSequence = () => {
     const terms = parseInt(numTermsInput, 10);
-    if (isNaN(terms) || terms <= 0) {
-      setError("Number of terms must be a positive integer.");
+    if (isNaN(terms) || terms < 3) {
+      // Updated condition
+      setError(
+        "Number of terms must be an integer greater than or equal to 3."
+      ); // Updated error message
       setSequence([]);
       setShowSequence(false);
       return;
@@ -104,7 +107,7 @@ const LucasPage: React.FC = () => {
             id="numTerms"
             value={numTermsInput} // Bind to string input state
             onChange={handleNumTermsInputChange}
-            min="1"
+            min="3" // Updated min attribute
             max="50"
           />
         </div>
