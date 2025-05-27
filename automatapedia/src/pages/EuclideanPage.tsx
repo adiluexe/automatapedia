@@ -157,7 +157,7 @@ const EuclideanPage: React.FC = () => {
                         <td>{step.remainder}</td>
                         <td>
                           {step.b !== 0
-                            ? `${step.a} = ${step.quotient} × ${step.b} + ${step.remainder}`
+                            ? `${step.a} = ${step.b} × ${step.quotient} + ${step.remainder}`
                             : `${step.a} = GCD`}
                         </td>
                       </tr>
@@ -170,7 +170,7 @@ const EuclideanPage: React.FC = () => {
                       <td>{step.b}</td>
                       <td>{step.quotient}</td>
                       <td>{step.remainder}</td>
-                      <td>{`${step.a} = ${step.quotient} × ${step.b} + ${step.remainder}`}</td>
+                      <td>{`${step.a} = ${step.b} × ${step.quotient} + ${step.remainder}`}</td>
                     </tr>
                   );
                 })}
