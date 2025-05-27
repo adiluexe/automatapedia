@@ -11,6 +11,7 @@ const PascalPage: React.FC = () => {
   const [showTriangle, setShowTriangle] = useState<boolean>(true); // Show by default
   const [error, setError] = React.useState<string | null>(null);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(1); // Zoom functionality
   const visualizationRef = React.useRef<HTMLDivElement>(null);
 
   const handleGenerateTriangle = () => {
@@ -31,7 +32,6 @@ const PascalPage: React.FC = () => {
     setNumRows(isNaN(value) ? 0 : value);
     setShowTriangle(false); // Hide triangle when input changes
   };
-
   const toggleFullScreen = () => {
     if (!visualizationRef.current) return;
 
@@ -46,68 +46,95 @@ const PascalPage: React.FC = () => {
         document.exitFullscreen();
       }
     }
+  };  // Zoom functionality
+  const handleZoomIn = () => {
+    setZoomLevel(prevZoom => Math.min(prevZoom + 0.1, 3)); // Max zoom 3x, 10% increments
+  };
+  const handleZoomOut = () => {
+    setZoomLevel(prevZoom => Math.max(prevZoom - 0.1, 0.1)); // Min zoom 0.1x, 10% decrements
   };
 
-  // Replaces the previous handleDownloadTriangle function
+  const handleResetZoom = () => {
+    setZoomLevel(1);
+  };  // Enhanced download function that captures the complete triangle
   const handleDownloadImage = () => {
-    const elementToCapture = visualizationRef.current;
-    if (!elementToCapture) {
-      setError("Visualization not available.");
-      return;
-    }
     if (!triangle || triangle.length === 0) {
       setError("Please generate a triangle first.");
       return;
-    }
+    }    // Get current theme colors from CSS variables
+    const computedStyle = getComputedStyle(document.documentElement);
+    const backgroundColor = computedStyle.getPropertyValue('--background-color').trim() || '#ffffff';
+    const textColor = computedStyle.getPropertyValue('--text-color').trim() || '#333333';
+    const cardBackgroundColor = computedStyle.getPropertyValue('--background-color-light').trim() || '#f9f9f9';
+    const primaryColor = computedStyle.getPropertyValue('--primary-color').trim() || '#333333';
+    const borderColor = computedStyle.getPropertyValue('--secondary-color').trim() || '#cccccc';
 
-    // Store original styles
-    const originalStyles = {
-      overflowY: elementToCapture.style.overflowY,
-      overflowX: elementToCapture.style.overflowX,
-      maxHeight: elementToCapture.style.maxHeight,
-      height: elementToCapture.style.height,
-    };
+    // Create a temporary container for the download
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.top = '-9999px';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.backgroundColor = backgroundColor;
+    tempContainer.style.padding = '20px';
+    tempContainer.style.fontFamily = getComputedStyle(document.body).fontFamily;
+    tempContainer.style.fontSize = '14px';
+    tempContainer.style.color = textColor;
 
-    const restoreStyles = () => {
-      elementToCapture.style.overflowY = originalStyles.overflowY;
-      elementToCapture.style.overflowX = originalStyles.overflowX;
-      elementToCapture.style.maxHeight = originalStyles.maxHeight;
-      elementToCapture.style.height = originalStyles.height;
-    };
+    // Add title
+    const title = document.createElement('h2');
+    title.textContent = `Pascal's Triangle (Rows 0 to ${numRows})`;
+    title.style.textAlign = 'center';
+    title.style.marginBottom = '20px';
+    title.style.color = primaryColor;
+    tempContainer.appendChild(title);
 
-    // Apply temporary styles for full capture
-    elementToCapture.style.overflowY = "visible";
-    elementToCapture.style.overflowX = "visible";
-    elementToCapture.style.maxHeight = "none"; // Remove maxHeight constraint
-    elementToCapture.style.height = "auto"; // Allow height to fit content
+    // Create the triangle content
+    const triangleContainer = document.createElement('div');
+    triangleContainer.style.display = 'flex';
+    triangleContainer.style.flexDirection = 'column';
+    triangleContainer.style.alignItems = 'center';    triangle.forEach((row) => {
+      const rowDiv = document.createElement('div');
+      rowDiv.style.display = 'flex';
+      rowDiv.style.justifyContent = 'center';
+      rowDiv.style.marginBottom = '5px';
 
-    const options = {
-      background:
-        getComputedStyle(elementToCapture).getPropertyValue(
-          "background-color"
-        ) || "white",
+      row.forEach((num) => {
+        const numSpan = document.createElement('span');
+        numSpan.textContent = num.toString();
+        numSpan.style.padding = '5px 10px';
+        numSpan.style.minWidth = '40px';
+        numSpan.style.textAlign = 'center';        numSpan.style.border = `1px solid ${borderColor}`;
+        numSpan.style.borderRadius = '4px';
+        numSpan.style.margin = '2px';
+        numSpan.style.backgroundColor = cardBackgroundColor;
+        numSpan.style.color = textColor;
+        numSpan.style.fontSize = '14px';
+        rowDiv.appendChild(numSpan);
+      });
+
+      triangleContainer.appendChild(rowDiv);
+    });
+
+    tempContainer.appendChild(triangleContainer);
+    document.body.appendChild(tempContainer);    // Capture the temporary container
+    html2canvas(tempContainer, {
+      background: backgroundColor,
       useCORS: true,
-      // Ensure the capture area starts at the top-left of the element
-      scrollX: -elementToCapture.scrollLeft,
-      scrollY: -elementToCapture.scrollTop,
-      windowWidth: elementToCapture.scrollWidth,
-      windowHeight: elementToCapture.scrollHeight,
-    };
-
-    html2canvas(elementToCapture, options)
+      logging: false
+    })
       .then((canvas) => {
         const link = document.createElement("a");
         link.download = `pascals_triangle_rows_0_to_${numRows}.png`;
-        link.href = canvas.toDataURL("image/png");
+        link.href = canvas.toDataURL("image/png", 0.95);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        restoreStyles(); // Restore styles after successful generation
+        document.body.removeChild(tempContainer); // Clean up
       })
       .catch((err) => {
         setError("Failed to download image: " + err.message);
         console.error("Error downloading image: ", err);
-        restoreStyles(); // Restore styles even if an error occurs
+        document.body.removeChild(tempContainer); // Clean up even on error
       });
   };
 
@@ -168,9 +195,7 @@ const PascalPage: React.FC = () => {
           </button>
         </div>
         {error && <p className="error-message">{error}</p>}
-      </section>
-
-      {showTriangle && triangle.length > 0 && (
+      </section>      {showTriangle && triangle.length > 0 && (
         <section className="results card">
           <div
             className="results-header"
@@ -187,13 +212,47 @@ const PascalPage: React.FC = () => {
               className="action-buttons"
               style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}
             >
+              <div 
+                className="zoom-controls"
+                style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}
+              >
+                <button 
+                  onClick={handleZoomOut} 
+                  className="button-style-secondary" 
+                  title="Zoom Out"
+                  style={{ minWidth: "35px", padding: "5px 8px" }}
+                >
+                  −
+                </button>
+                <button 
+                  onClick={handleResetZoom} 
+                  className="button-style-secondary" 
+                  title="Reset Zoom"
+                  style={{ minWidth: "60px", padding: "5px 8px", fontSize: "0.85em" }}
+                >
+                  {Math.round(zoomLevel * 100)}%
+                </button>
+                <button 
+                  onClick={handleZoomIn} 
+                  className="button-style-secondary" 
+                  title="Zoom In"
+                  style={{ minWidth: "35px", padding: "5px 8px" }}
+                >
+                  +
+                </button>
+              </div>
+              <button 
+                onClick={handleDownloadImage} 
+                className="button-style-secondary"
+                title="Download as Image"
+              >
+                📥
+              </button>
               <button onClick={toggleFullScreen} className="button-style">
                 {isFullScreen ? "Exit Fullscreen" : "View Fullscreen"}
               </button>
-              {/* Download button is now conditionally rendered inside the fullscreen view */}
             </div>
-          </div>
-          <div
+          </div>          <div
             ref={visualizationRef}
             className="visualization-placeholder pascal-triangle-visualization"
             style={{
@@ -203,28 +262,85 @@ const PascalPage: React.FC = () => {
               backgroundColor: isFullScreen
                 ? "var(--background-color, white)"
                 : "transparent",
-              padding: isFullScreen ? "0" : "0", // Padding will be handled by inner content or specific fullscreen styles
+              padding: isFullScreen ? "0" : "0",
               boxSizing: "border-box",
-              display: isFullScreen ? "flex" : "block", // Use flex for fullscreen to manage header and content
-              flexDirection: isFullScreen ? "column" : "initial", // Stack header and content vertically in fullscreen
+              display: isFullScreen ? "flex" : "block",
+              flexDirection: isFullScreen ? "column" : "initial",
+              position: "relative",
             }}
-          >
-            {isFullScreen && (
-              <div className="fullscreen-visualization-header">
-                {/* <button
-                  onClick={handleDownloadImage}
-                  className="button-style"
-                  style={{ marginRight: "auto" }}
-                >
-                  Download as Image
-                </button> */}
-                <button onClick={toggleFullScreen} className="button-style">
-                  Back
-                </button>
+          >{isFullScreen && (
+              <div 
+                className="fullscreen-visualization-header"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "10px 20px",
+                  backgroundColor: "var(--card-background-color)",
+                  borderBottom: "1px solid var(--text-color)",
+                  flexShrink: 0,
+                  gap: "1rem"
+                }}
+              >
+                <h3 style={{ margin: 0, color: "var(--text-color)" }}>
+                  Pascal's Triangle (Rows 0 to {numRows})
+                </h3>
+                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                  <div 
+                    className="zoom-controls"
+                    style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}
+                  >
+                    <button 
+                      onClick={handleZoomOut} 
+                      className="button-style-secondary" 
+                      title="Zoom Out"
+                      style={{ minWidth: "40px", padding: "8px 10px", fontSize: "1.1em" }}
+                    >
+                      −
+                    </button>
+                    <button 
+                      onClick={handleResetZoom} 
+                      className="button-style-secondary" 
+                      title="Reset Zoom"
+                      style={{ minWidth: "70px", padding: "8px 10px" }}
+                    >
+                      {Math.round(zoomLevel * 100)}%
+                    </button>
+                    <button 
+                      onClick={handleZoomIn} 
+                      className="button-style-secondary" 
+                      title="Zoom In"
+                      style={{ minWidth: "40px", padding: "8px 10px", fontSize: "1.1em" }}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button 
+                    onClick={handleDownloadImage} 
+                    className="button-style-secondary"
+                    title="Download as Image"
+                    style={{ padding: "8px 12px" }}
+                  >
+                    📥
+                  </button>
+                  <button 
+                    onClick={toggleFullScreen} 
+                    className="button-style"
+                    style={{ padding: "8px 16px" }}
+                  >
+                    Exit Fullscreen
+                  </button>
+                </div>
               </div>
-            )}
-            {/* Wrapper to ensure horizontal scrolling works correctly */}
-            <div style={{ display: "inline-block" }}>
+            )}{/* Wrapper to ensure horizontal scrolling works correctly */}
+            <div 
+              style={{ 
+                display: "inline-block",
+                transform: `scale(${zoomLevel})`,
+                transformOrigin: "top center",
+                transition: "transform 0.3s ease"
+              }}
+            >
               {triangle.map((row, rowIndex) => (
                 <div
                   key={rowIndex}
