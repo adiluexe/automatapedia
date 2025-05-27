@@ -202,12 +202,10 @@ const FibonacciPage: React.FC = () => {
             </ResponsiveContainer>
           </div>
           <div className="sequence-values">
-            <h3>Sequence Values:</h3>
-            <div className="sequence-list">
+            <h3>Sequence Values:</h3>            <div className="sequence-list">
               {sequence.map((num, index) => (
                 <code key={index} className="sequence-element">
                   F({index}) = {num.toLocaleString()}
-                  {index < sequence.length - 1 ? ", " : ""}
                 </code>
               ))}
             </div>
